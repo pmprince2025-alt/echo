@@ -26,4 +26,9 @@ object ImageUtils {
                 .replace(W_REGEX, wSizeStr)
         }
     }
+
+    fun getMaxResThumbnailUrl(url: String?): String? {
+        if (url == null) return null
+        return getHighResThumbnailUrl(url, 1920)
+    }
 }

@@ -19,19 +19,15 @@ import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
-import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.interaction.collectIsPressedAsState
-import androidx.compose.ui.draw.scale
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -630,34 +626,15 @@ fun PlayerTopActions(
                 horizontalArrangement = Arrangement.spacedBy(10.dp),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                val interactionSourceLike = remember { MutableInteractionSource() }
-                val isLikePressed by interactionSourceLike.collectIsPressedAsState()
-                val likeScale by animateFloatAsState(targetValue = if (isLikePressed) 0.95f else 1f, label = "")
-
                 Box(
                     modifier = Modifier
-                        .size(46.dp)
-                        .scale(likeScale)
+                        .size(42.dp)
                         .clip(CircleShape)
                         .background(
-                            brush = Brush.verticalGradient(
-                                colors = listOf(
-                                    textBackgroundColor.copy(alpha = if (currentSongLiked) 0.3f else 0.15f),
-                                    textBackgroundColor.copy(alpha = if (currentSongLiked) 0.1f else 0.02f)
-                                )
-                            )
+                            if (currentSongLiked) textBackgroundColor.copy(alpha = 0.2f)
+                            else Color.Transparent
                         )
-                        .border(
-                            width = 1.dp,
-                            brush = Brush.verticalGradient(
-                                colors = listOf(
-                                    textBackgroundColor.copy(alpha = 0.4f),
-                                    textBackgroundColor.copy(alpha = 0.05f)
-                                )
-                            ),
-                            shape = CircleShape
-                        )
-                        .clickable(interactionSource = interactionSourceLike, indication = null) { playerConnection.toggleLike() },
+                        .clickable { playerConnection.toggleLike() },
                     contentAlignment = Alignment.Center
                 ) {
                     Icon(
@@ -667,51 +644,26 @@ fun PlayerTopActions(
                         ),
                         contentDescription = null,
                         tint = textBackgroundColor.copy(alpha = if (currentSongLiked) 1f else 0.7f),
-                        modifier = Modifier.size(24.dp)
+                        modifier = Modifier.size(22.dp)
                     )
                 }
 
-                val interactionSourceMenu = remember { MutableInteractionSource() }
-                val isMenuPressed by interactionSourceMenu.collectIsPressedAsState()
-                val menuScale by animateFloatAsState(targetValue = if (isMenuPressed) 0.95f else 1f, label = "")
-
                 Box(
                     modifier = Modifier
-                        .size(46.dp)
-                        .scale(menuScale)
+                        .size(42.dp)
                         .clip(CircleShape)
-                        .background(
-                            brush = Brush.verticalGradient(
-                                colors = listOf(
-                                    textBackgroundColor.copy(alpha = 0.15f),
-                                    textBackgroundColor.copy(alpha = 0.02f)
-                                )
-                            )
-                        )
-                        .border(
-                            width = 1.dp,
-                            brush = Brush.verticalGradient(
-                                colors = listOf(
-                                    textBackgroundColor.copy(alpha = 0.4f),
-                                    textBackgroundColor.copy(alpha = 0.05f)
-                                )
-                            ),
-                            shape = CircleShape
-                        )
-                        .clickable(interactionSource = interactionSourceMenu, indication = null) {
+                        .clickable {
                             menuState.show {
                                 PlayerMenu(
                                     mediaMetadata = mediaMetadata,
                                     navController = navController,
                                     playerBottomSheetState = state,
                                     onShowDetailsDialog = {
-                                        mediaMetadata.id.let {
-                                            bottomSheetPageState.show {
-                                                ShowMediaInfo(it)
-                                            }
+                                        bottomSheetPageState.show {
+                                            ShowMediaInfo(mediaMetadata.id)
                                         }
                                     },
-                                    onDismiss = menuState::dismiss,
+                                    onDismiss = menuState::dismiss
                                 )
                             }
                         },
@@ -1642,41 +1594,15 @@ fun PlayerPlaybackControls(
                     .fillMaxWidth()
                     .padding(horizontal = PlayerHorizontalPadding)
             ) {
-                val interactionSourcePrev = remember { MutableInteractionSource() }
-                val isPrevPressed by interactionSourcePrev.collectIsPressedAsState()
-                val prevScale by animateFloatAsState(targetValue = if (isPrevPressed) 0.9f else 1f, label = "")
-
                 Surface(
                     onClick = playerConnection::seekToPrevious,
                     enabled = canSkipPrevious,
                     shape = CircleShape,
                     color = Color.Transparent,
-                    interactionSource = interactionSourcePrev,
-                    modifier = Modifier
-                        .size(64.dp)
-                        .scale(prevScale)
+                    modifier = Modifier.size(64.dp)
                 ) {
                     Box(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .background(
-                                brush = Brush.verticalGradient(
-                                    colors = listOf(
-                                        textBackgroundColor.copy(alpha = 0.15f),
-                                        textBackgroundColor.copy(alpha = 0.02f)
-                                    )
-                                )
-                            )
-                            .border(
-                                width = 1.dp,
-                                brush = Brush.verticalGradient(
-                                    colors = listOf(
-                                        textBackgroundColor.copy(alpha = 0.3f),
-                                        textBackgroundColor.copy(alpha = 0.05f)
-                                    )
-                                ),
-                                shape = CircleShape
-                            ),
+                        modifier = Modifier.fillMaxSize(),
                         contentAlignment = Alignment.Center
                     ) {
                         Icon(
@@ -1685,14 +1611,10 @@ fun PlayerPlaybackControls(
                             tint = textBackgroundColor.copy(
                                 alpha = if (canSkipPrevious) 1f else 0.4f
                             ),
-                            modifier = Modifier.size(32.dp)
+                            modifier = Modifier.size(44.dp)
                         )
                     }
                 }
-
-                val interactionSourcePlay = remember { MutableInteractionSource() }
-                val isPlayPressed by interactionSourcePlay.collectIsPressedAsState()
-                val playScale by animateFloatAsState(targetValue = if (isPlayPressed) 0.9f else 1f, label = "")
 
                 Surface(
                     onClick = {
@@ -1705,32 +1627,10 @@ fun PlayerPlaybackControls(
                     },
                     shape = CircleShape,
                     color = Color.Transparent,
-                    interactionSource = interactionSourcePlay,
-                    modifier = Modifier
-                        .size(80.dp)
-                        .scale(playScale)
+                    modifier = Modifier.size(72.dp)
                 ) {
                     Box(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .background(
-                                brush = Brush.verticalGradient(
-                                    colors = listOf(
-                                        textBackgroundColor.copy(alpha = 0.25f),
-                                        textBackgroundColor.copy(alpha = 0.05f)
-                                    )
-                                )
-                            )
-                            .border(
-                                width = 1.dp,
-                                brush = Brush.verticalGradient(
-                                    colors = listOf(
-                                        textBackgroundColor.copy(alpha = 0.5f),
-                                        textBackgroundColor.copy(alpha = 0.1f)
-                                    )
-                                ),
-                                shape = CircleShape
-                            ),
+                        modifier = Modifier.fillMaxSize(),
                         contentAlignment = Alignment.Center
                     ) {
                         if (isLoading) {
@@ -1749,47 +1649,21 @@ fun PlayerPlaybackControls(
                                 ),
                                 contentDescription = null,
                                 tint = textBackgroundColor,
-                                modifier = Modifier.size(40.dp)
+                                modifier = Modifier.size(52.dp)
                             )
                         }
                     }
                 }
-
-                val interactionSourceNext = remember { MutableInteractionSource() }
-                val isNextPressed by interactionSourceNext.collectIsPressedAsState()
-                val nextScale by animateFloatAsState(targetValue = if (isNextPressed) 0.9f else 1f, label = "")
 
                 Surface(
                     onClick = { playerConnection.seekToNext() },
                     enabled = canSkipNext,
                     shape = CircleShape,
                     color = Color.Transparent,
-                    interactionSource = interactionSourceNext,
-                    modifier = Modifier
-                        .size(64.dp)
-                        .scale(nextScale)
+                    modifier = Modifier.size(64.dp)
                 ) {
                     Box(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .background(
-                                brush = Brush.verticalGradient(
-                                    colors = listOf(
-                                        textBackgroundColor.copy(alpha = 0.15f),
-                                        textBackgroundColor.copy(alpha = 0.02f)
-                                    )
-                                )
-                            )
-                            .border(
-                                width = 1.dp,
-                                brush = Brush.verticalGradient(
-                                    colors = listOf(
-                                        textBackgroundColor.copy(alpha = 0.3f),
-                                        textBackgroundColor.copy(alpha = 0.05f)
-                                    )
-                                ),
-                                shape = CircleShape
-                            ),
+                        modifier = Modifier.fillMaxSize(),
                         contentAlignment = Alignment.Center
                     ) {
                         Icon(
@@ -1798,7 +1672,7 @@ fun PlayerPlaybackControls(
                             tint = textBackgroundColor.copy(
                                 alpha = if (canSkipNext) 1f else 0.4f
                             ),
-                            modifier = Modifier.size(32.dp)
+                            modifier = Modifier.size(44.dp)
                         )
                     }
                 }
@@ -2003,6 +1877,20 @@ fun PlayerBackground(
                                     .fillMaxSize()
                                     .background(Brush.verticalGradient(colorStops = overlayStops))
                             )
+                            // Glass morphism layer
+                            Box(
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .background(
+                                        Brush.verticalGradient(
+                                            colors = listOf(
+                                                Color.White.copy(alpha = 0.04f),
+                                                Color.Transparent,
+                                                Color.Black.copy(alpha = 0.15f),
+                                            )
+                                        )
+                                    )
+                            )
                             Box(
                                 modifier = Modifier
                                     .fillMaxSize()
@@ -2025,21 +1913,36 @@ fun PlayerBackground(
                         Box(modifier = Modifier.fillMaxSize()) {
                             val gradientColorStops = if (colors.size >= 3) {
                                 arrayOf(
-                                    0.0f to colors[0].copy(alpha = 0.92f), // Top: primary vibrant color
-                                    0.5f to colors[1].copy(alpha = 0.75f), // Middle: darker variant
-                                    1.0f to colors[2].copy(alpha = 0.65f)  // Bottom: black-ish
+                                    0.0f to colors[0].copy(alpha = 0.95f),
+                                    0.3f to colors[1].copy(alpha = 0.85f),
+                                    0.7f to colors[1].copy(alpha = 0.70f),
+                                    1.0f to colors[2].copy(alpha = 0.60f)
                                 )
                             } else {
                                 arrayOf(
-                                    0.0f to colors[0].copy(alpha = 0.9f), // Top: primary color
-                                    0.6f to colors[0].copy(alpha = 0.55f), // Middle: faded variant
-                                    1.0f to Color.Black.copy(alpha = 0.7f) // Bottom: black
+                                    0.0f to colors[0].copy(alpha = 0.92f),
+                                    0.5f to colors[0].copy(alpha = 0.65f),
+                                    1.0f to Color.Black.copy(alpha = 0.75f)
                                 )
                             }
                             Box(
                                 modifier = Modifier
                                     .fillMaxSize()
                                     .background(Brush.verticalGradient(colorStops = gradientColorStops))
+                            )
+                            // Glass morphism overlay
+                            Box(
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .background(
+                                        Brush.verticalGradient(
+                                            colors = listOf(
+                                                Color.White.copy(alpha = 0.03f),
+                                                Color.Transparent,
+                                                Color.Black.copy(alpha = 0.12f),
+                                            )
+                                        )
+                                    )
                             )
                             // Keep a gentle dark overlay to ensure text contrast on bright artwork
                             Box(
@@ -2108,6 +2011,19 @@ fun PlayerBackground(
                             Box(
                                 modifier = Modifier
                                     .fillMaxSize()
+                                    .background(
+                                        Brush.verticalGradient(
+                                            colors = listOf(
+                                                Color.White.copy(alpha = 0.03f),
+                                                Color.Transparent,
+                                                Color.Black.copy(alpha = 0.10f),
+                                            )
+                                        )
+                                    )
+                            )
+                            Box(
+                                modifier = Modifier
+                                    .fillMaxSize()
                                     .background(Color.Black.copy(alpha = 0.05f))
                             )
                         }
@@ -2147,6 +2063,19 @@ fun PlayerBackground(
                                     if (disableBlur) it else it.blur(radius = blurPx.dp)
                                 },
                                 colorFilter = ColorFilter.colorMatrix(cm)
+                            )
+                            Box(
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .background(
+                                        Brush.verticalGradient(
+                                            colors = listOf(
+                                                Color.White.copy(alpha = 0.02f),
+                                                Color.Transparent,
+                                                Color.Black.copy(alpha = 0.08f),
+                                            )
+                                        )
+                                    )
                             )
                             Box(
                                 modifier = Modifier
