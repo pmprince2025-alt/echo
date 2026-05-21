@@ -37,7 +37,36 @@ jobs:
           if [ -n "${{ secrets.GOOGLE_SERVICES_JSON }}" ]; then
             echo '${{ secrets.GOOGLE_SERVICES_JSON }}' > app/google-services.json
           else
-            echo '{"client": [], "project_info": {"project_number": "0", "firebase_url": "", "project_id": "dummy", "storage_bucket": ""}}' > app/google-services.json
+            cat > app/google-services.json << 'EOF'
+            {
+              "project_info": {
+                "project_number": "000000000000",
+                "project_id": "echo-music-dummy",
+                "storage_bucket": "echo-music-dummy.appspot.com"
+              },
+              "client": [
+                {
+                  "client_info": {
+                    "mobilesdk_app_id": "1:000000000000:android:0000000000000000",
+                    "android_client_info": {
+                      "package_name": "prince.sonic.music"
+                    }
+                  },
+                  "api_key": [{ "current_key": "dummy-api-key" }]
+                },
+                {
+                  "client_info": {
+                    "mobilesdk_app_id": "1:000000000000:android:0000000000000001",
+                    "android_client_info": {
+                      "package_name": "prince.sonic.music.debug"
+                    }
+                  },
+                  "api_key": [{ "current_key": "dummy-api-key" }]
+                }
+              ],
+              "configuration_version": "1"
+            }
+            EOF
           fi
 
       - name: Make gradlew executable
