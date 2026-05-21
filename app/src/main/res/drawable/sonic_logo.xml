@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Background gradient effect -->
+    <path
+        android:pathData="M54,10 L54,98"
+        android:strokeWidth="40"
+        android:strokeColor="#00000000"/>
+
+    <!-- Main S shape -->
+    <path
+        android:pathData="M54,20 C35,20 28,35 28,45 C28,60 45,65 54,70 C63,75 78,80 78,95 C78,110 63,120 44,120"
+        android:strokeWidth="8"
+        android:strokeColor="#00D9FF"
+        android:strokeLineCap="round"
+        android:fillColor="#00000000"/>
+
+    <!-- Sound wave left -->
+    <path
+        android:pathData="M20,45 Q15,54 20,63"
+        android:strokeWidth="3"
+        android:strokeColor="#FF6BD9"
+        android:strokeLineCap="round"
+        android:fillColor="#00000000"/>
+
+    <path
+        android:pathData="M12,40 Q5,54 12,68"
+        android:strokeWidth="2.5"
+        android:strokeColor="#FF6BD9"
+        android:strokeLineCap="round"
+        android:fillColor="#00000000"/>
+
+    <!-- Sound wave right -->
+    <path
+        android:pathData="M88,45 Q93,54 88,63"
+        android:strokeWidth="3"
+        android:strokeColor="#FF6BD9"
+        android:strokeLineCap="round"
+        android:fillColor="#00000000"/>
+
+    <path
+        android:pathData="M96,40 Q103,54 96,68"
+        android:strokeWidth="2.5"
+        android:strokeColor="#FF6BD9"
+        android:strokeLineCap="round"
+        android:fillColor="#00000000"/>
+
+    <!-- Glow effect -->
+    <path
+        android:pathData="M54,20 C35,20 28,35 28,45 C28,60 45,65 54,70 C63,75 78,80 78,95 C78,110 63,120 44,120"
+        android:strokeWidth="12"
+        android:strokeColor="#4000D9FF"
+        android:strokeLineCap="round"
+        android:fillColor="#00000000"/>
+
+</vector>
