@@ -1,4 +1,9 @@
-package prince.sonic.music.utils
+
+
+
+
+
+package iad1tya.echo.music.utils
 
 import android.content.Context
 import android.net.ConnectivityManager
@@ -25,7 +30,7 @@ class NetworkConnectivityObserver(context: Context) {
         }
 
         override fun onLost(network: Network) {
-            _networkStatus.trySend(false)
+            _networkStatus.trySend(isCurrentlyConnected())
         }
     }
 

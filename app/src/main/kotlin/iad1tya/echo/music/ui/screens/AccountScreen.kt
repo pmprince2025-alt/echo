@@ -1,4 +1,9 @@
-package prince.sonic.music.ui.screens
+
+
+
+@file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
+
+package iad1tya.echo.music.ui.screens
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.combinedClickable
@@ -8,6 +13,7 @@ import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -24,21 +30,21 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavController
-import prince.sonic.music.LocalPlayerAwareWindowInsets
-import prince.sonic.music.R
-import prince.sonic.music.constants.GridThumbnailHeight
-import prince.sonic.music.ui.component.ChipsRow
-import prince.sonic.music.ui.component.IconButton
-import prince.sonic.music.ui.component.LocalMenuState
-import prince.sonic.music.ui.component.YouTubeGridItem
-import prince.sonic.music.ui.component.shimmer.GridItemPlaceHolder
-import prince.sonic.music.ui.component.shimmer.ShimmerHost
-import prince.sonic.music.ui.menu.YouTubeAlbumMenu
-import prince.sonic.music.ui.menu.YouTubeArtistMenu
-import prince.sonic.music.ui.menu.YouTubePlaylistMenu
-import prince.sonic.music.ui.utils.backToMain
-import prince.sonic.music.viewmodels.AccountViewModel
-import prince.sonic.music.viewmodels.AccountContentType
+import iad1tya.echo.music.LocalPlayerAwareWindowInsets
+import iad1tya.echo.music.R
+import iad1tya.echo.music.constants.GridThumbnailHeight
+import iad1tya.echo.music.ui.component.ChipsRow
+import iad1tya.echo.music.ui.component.IconButton
+import iad1tya.echo.music.ui.component.LocalMenuState
+import iad1tya.echo.music.ui.component.YouTubeGridItem
+import iad1tya.echo.music.ui.component.shimmer.GridItemPlaceHolder
+import iad1tya.echo.music.ui.component.shimmer.ShimmerHost
+import iad1tya.echo.music.ui.menu.YouTubeAlbumMenu
+import iad1tya.echo.music.ui.menu.YouTubeArtistMenu
+import iad1tya.echo.music.ui.menu.YouTubePlaylistMenu
+import iad1tya.echo.music.ui.utils.backToMain
+import iad1tya.echo.music.viewmodels.AccountViewModel
+import iad1tya.echo.music.viewmodels.AccountContentType
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable

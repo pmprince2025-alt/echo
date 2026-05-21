@@ -1,10 +1,13 @@
-package prince.sonic.music.ui.component
+
+
+
+
+
+package iad1tya.echo.music.ui.component
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
-import androidx.compose.animation.core.FastOutSlowInEasing
-import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
@@ -26,7 +29,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.layout.systemBars
-import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
@@ -52,8 +54,8 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import prince.sonic.music.R
-import prince.sonic.music.ui.utils.top
+import iad1tya.echo.music.R
+import iad1tya.echo.music.ui.utils.top
 import kotlinx.coroutines.launch
 
 val LocalBottomSheetPageState = compositionLocalOf { BottomSheetPageState() }
@@ -88,8 +90,8 @@ fun BottomSheetPage(
 
     AnimatedVisibility(
         visible = state.isVisible,
-        enter = fadeIn(animationSpec = tween(180, easing = LinearEasing)),
-        exit = fadeOut(animationSpec = tween(150, easing = LinearEasing)),
+        enter = fadeIn(animationSpec = tween(300)),
+        exit = fadeOut(animationSpec = tween(300)),
     ) {
         BackHandler {
             state.dismiss()
@@ -111,11 +113,11 @@ fun BottomSheetPage(
         visible = state.isVisible,
         enter = slideInVertically(
             initialOffsetY = { it },
-            animationSpec = tween(300, easing = FastOutSlowInEasing)
+            animationSpec = tween(300)
         ),
         exit = slideOutVertically(
             targetOffsetY = { it },
-            animationSpec = tween(250, easing = FastOutSlowInEasing)
+            animationSpec = tween(300)
         ),
         modifier = modifier,
     ) {

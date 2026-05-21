@@ -1,10 +1,15 @@
-package prince.sonic.music.playback.queues
+
+
+
+
+
+package iad1tya.echo.music.playback.queues
 
 import androidx.media3.common.MediaItem
-import com.echo.innertube.YouTube
-import com.echo.innertube.models.WatchEndpoint
-import prince.sonic.music.extensions.toMediaItem
-import prince.sonic.music.models.MediaMetadata
+import iad1tya.echo.music.innertube.YouTube
+import iad1tya.echo.music.innertube.models.WatchEndpoint
+import iad1tya.echo.music.extensions.toMediaItem
+import iad1tya.echo.music.models.MediaMetadata
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.withContext
 

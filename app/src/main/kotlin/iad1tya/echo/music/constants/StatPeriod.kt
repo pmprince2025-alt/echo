@@ -1,6 +1,11 @@
-package prince.sonic.music.constants
 
-import prince.sonic.music.ui.screens.OptionStats
+
+
+
+
+package iad1tya.echo.music.constants
+
+import iad1tya.echo.music.ui.screens.OptionStats
 import java.time.LocalDateTime
 import java.time.ZoneOffset
 
@@ -59,17 +64,6 @@ fun statToPeriod(
     test: Int,
 ): Long =
     when (selection) {
-        OptionStats.DAYS -> {
-            LocalDateTime
-                .now()
-                .minusDays(test.toLong())
-                .withHour(0)
-                .withMinute(0)
-                .withSecond(0)
-                .toInstant(ZoneOffset.UTC)
-                .toEpochMilli()
-        }
-
         OptionStats.WEEKS -> {
             LocalDateTime
                 .now()

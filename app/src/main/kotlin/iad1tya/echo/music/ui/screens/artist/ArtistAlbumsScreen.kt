@@ -1,4 +1,9 @@
-package prince.sonic.music.ui.screens.artist
+
+
+
+
+
+package iad1tya.echo.music.ui.screens.artist
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -40,17 +45,17 @@ import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavController
-import prince.sonic.music.LocalPlayerAwareWindowInsets
-import prince.sonic.music.LocalPlayerConnection
-import prince.sonic.music.R
-import prince.sonic.music.constants.CONTENT_TYPE_ALBUM
-import prince.sonic.music.constants.CONTENT_TYPE_HEADER
-import prince.sonic.music.constants.GridThumbnailHeight
-import prince.sonic.music.ui.component.IconButton
-import prince.sonic.music.ui.component.LibraryAlbumGridItem
-import prince.sonic.music.ui.component.LocalMenuState
-import prince.sonic.music.ui.utils.backToMain
-import prince.sonic.music.viewmodels.ArtistAlbumsViewModel
+import iad1tya.echo.music.LocalPlayerAwareWindowInsets
+import iad1tya.echo.music.LocalPlayerConnection
+import iad1tya.echo.music.R
+import iad1tya.echo.music.constants.CONTENT_TYPE_ALBUM
+import iad1tya.echo.music.constants.CONTENT_TYPE_HEADER
+import iad1tya.echo.music.constants.GridThumbnailHeight
+import iad1tya.echo.music.ui.component.IconButton
+import iad1tya.echo.music.ui.component.LibraryAlbumGridItem
+import iad1tya.echo.music.ui.component.LocalMenuState
+import iad1tya.echo.music.ui.utils.backToMain
+import iad1tya.echo.music.viewmodels.ArtistAlbumsViewModel
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
 @Composable

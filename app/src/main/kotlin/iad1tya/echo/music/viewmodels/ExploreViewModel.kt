@@ -1,16 +1,23 @@
-package prince.sonic.music.viewmodels
+
+
+
+
+
+package iad1tya.echo.music.viewmodels
 
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.echo.innertube.YouTube
-import com.echo.innertube.models.filterExplicit
-import com.echo.innertube.pages.ExplorePage
-import prince.sonic.music.constants.HideExplicitKey
-import prince.sonic.music.db.MusicDatabase
-import prince.sonic.music.utils.dataStore
-import prince.sonic.music.utils.get
-import prince.sonic.music.utils.reportException
+import iad1tya.echo.music.innertube.YouTube
+import iad1tya.echo.music.innertube.models.filterExplicit
+import iad1tya.echo.music.innertube.models.filterVideo
+import iad1tya.echo.music.innertube.pages.ExplorePage
+import iad1tya.echo.music.constants.HideExplicitKey
+import iad1tya.echo.music.constants.HideVideoKey
+import iad1tya.echo.music.db.MusicDatabase
+import iad1tya.echo.music.utils.dataStore
+import iad1tya.echo.music.utils.get
+import iad1tya.echo.music.utils.reportException
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
@@ -59,7 +66,7 @@ constructor(
                                         }
                                     } ?: Int.MAX_VALUE
                                 firstArtistKey
-                            }.filterExplicit(context.dataStore.get(HideExplicitKey, false)),
+                            }.filterExplicit(context.dataStore.get(HideExplicitKey, false)).filterVideo(context.dataStore.get(HideVideoKey, false)),
                     )
             }.onFailure {
                 reportException(it)

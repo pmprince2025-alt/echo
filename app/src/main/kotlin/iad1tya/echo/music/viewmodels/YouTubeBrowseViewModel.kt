@@ -1,17 +1,21 @@
-package prince.sonic.music.viewmodels
+
+
+
+
+
+package iad1tya.echo.music.viewmodels
 
 import android.content.Context
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.echo.innertube.YouTube
-import com.echo.innertube.pages.BrowseResult
-import prince.sonic.music.constants.HideExplicitKey
-import prince.sonic.music.constants.HideVideoSongsKey
-import prince.sonic.music.constants.HideYoutubeShortsKey
-import prince.sonic.music.utils.dataStore
-import prince.sonic.music.utils.get
-import prince.sonic.music.utils.reportException
+import iad1tya.echo.music.innertube.YouTube
+import iad1tya.echo.music.innertube.pages.BrowseResult
+import iad1tya.echo.music.constants.HideExplicitKey
+import iad1tya.echo.music.constants.HideVideoKey
+import iad1tya.echo.music.utils.dataStore
+import iad1tya.echo.music.utils.get
+import iad1tya.echo.music.utils.reportException
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -35,10 +39,8 @@ constructor(
             YouTube
                 .browse(browseId, params)
                 .onSuccess {
-                    result.value = it
-                        .filterExplicit(context.dataStore.get(HideExplicitKey, false))
-                        .filterVideoSongs(context.dataStore.get(HideVideoSongsKey, false))
-                        .filterYoutubeShorts(context.dataStore.get(HideYoutubeShortsKey, false))
+                    val hideVideo = context.dataStore.get(HideVideoKey, false)
+                    result.value = it.filterExplicit(context.dataStore.get(HideExplicitKey, false)).filterVideo(hideVideo)
                 }.onFailure {
                     reportException(it)
                 }

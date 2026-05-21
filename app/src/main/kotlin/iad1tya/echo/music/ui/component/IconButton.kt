@@ -1,4 +1,9 @@
-package prince.sonic.music.ui.component
+
+
+
+
+
+package iad1tya.echo.music.ui.component
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -27,8 +32,6 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.hapticfeedback.HapticFeedbackType
-import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
@@ -68,7 +71,6 @@ fun IconButton(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable () -> Unit,
 ) {
-    val haptic = LocalHapticFeedback.current
     Box(
         modifier = modifier
             .minimumInteractiveComponentSize()
@@ -77,10 +79,7 @@ fun IconButton(
             .background(color = colors.containerColor)
             .combinedClickable(
                 onClick = onClick,
-                onLongClick = {
-                    haptic.performHapticFeedback(HapticFeedbackType.LongPress)
-                    onLongClick()
-                },
+                onLongClick = onLongClick,
                 enabled = enabled,
                 role = Role.Button,
                 interactionSource = interactionSource,

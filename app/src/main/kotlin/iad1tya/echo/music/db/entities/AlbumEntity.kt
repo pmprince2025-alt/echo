@@ -1,10 +1,15 @@
-package prince.sonic.music.db.entities
+
+
+
+
+
+package iad1tya.echo.music.db.entities
 
 import androidx.compose.runtime.Immutable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.echo.innertube.YouTube
+import iad1tya.echo.music.innertube.YouTube
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
@@ -28,23 +33,19 @@ data class AlbumEntity(
     val bookmarkedAt: LocalDateTime? = null,
     val likedDate: LocalDateTime? = null,
     val inLibrary: LocalDateTime? = null,
-    @ColumnInfo(name = "isLocal", defaultValue = false.toString())
-    val isLocal: Boolean = false,
-    @ColumnInfo(name = "isUploaded", defaultValue = false.toString())
-    val isUploaded: Boolean = false
+    @ColumnInfo(name = "isLocal", defaultValue = "0")
+    val isLocal: Boolean = false
 ) {
     fun localToggleLike() = copy(
         bookmarkedAt = if (bookmarkedAt != null) null else LocalDateTime.now()
     )
 
-    fun toggleUploaded() = copy(
-        isUploaded = !isUploaded
-    )
-
     fun toggleLike() = localToggleLike().also {
+        if (isLocal) return@also
         CoroutineScope(Dispatchers.IO).launch {
-            if (playlistId != null)
+            if (playlistId != null) {
                 YouTube.likePlaylist(playlistId, bookmarkedAt == null)
+            }
             this.cancel()
         }
     }

@@ -1,4 +1,9 @@
-package prince.sonic.music.ui.screens.artist
+
+
+
+
+
+package iad1tya.echo.music.ui.screens.artist
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
@@ -31,33 +36,35 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.echo.innertube.models.AlbumItem
-import com.echo.innertube.models.ArtistItem
-import com.echo.innertube.models.EpisodeItem
-import com.echo.innertube.models.PlaylistItem
-import com.echo.innertube.models.PodcastItem
-import com.echo.innertube.models.SongItem
-import com.echo.innertube.models.WatchEndpoint
-import prince.sonic.music.LocalPlayerAwareWindowInsets
-import prince.sonic.music.LocalPlayerConnection
-import prince.sonic.music.R
-import prince.sonic.music.constants.GridThumbnailHeight
-import prince.sonic.music.extensions.togglePlayPause
-import prince.sonic.music.models.toMediaMetadata
-import prince.sonic.music.playback.queues.YouTubeQueue
-import prince.sonic.music.ui.component.IconButton
-import prince.sonic.music.ui.component.LocalMenuState
-import prince.sonic.music.ui.component.YouTubeGridItem
-import prince.sonic.music.ui.component.YouTubeListItem
-import prince.sonic.music.ui.component.shimmer.GridItemPlaceHolder
-import prince.sonic.music.ui.component.shimmer.ListItemPlaceHolder
-import prince.sonic.music.ui.component.shimmer.ShimmerHost
-import prince.sonic.music.ui.menu.YouTubeAlbumMenu
-import prince.sonic.music.ui.menu.YouTubeArtistMenu
-import prince.sonic.music.ui.menu.YouTubePlaylistMenu
-import prince.sonic.music.ui.menu.YouTubeSongMenu
-import prince.sonic.music.ui.utils.backToMain
-import prince.sonic.music.viewmodels.ArtistItemsViewModel
+import iad1tya.echo.music.innertube.models.AlbumItem
+import iad1tya.echo.music.innertube.models.ArtistItem
+import iad1tya.echo.music.innertube.models.EpisodeItem
+import iad1tya.echo.music.innertube.models.PlaylistItem
+import iad1tya.echo.music.innertube.models.PodcastItem
+import iad1tya.echo.music.innertube.models.SongItem
+import iad1tya.echo.music.innertube.models.WatchEndpoint
+import iad1tya.echo.music.LocalPlayerAwareWindowInsets
+import iad1tya.echo.music.LocalPlayerConnection
+import iad1tya.echo.music.R
+import iad1tya.echo.music.constants.GridThumbnailHeight
+import iad1tya.echo.music.extensions.togglePlayPause
+import iad1tya.echo.music.models.toMediaMetadata
+import iad1tya.echo.music.extensions.toMediaItem
+import iad1tya.echo.music.playback.queues.ListQueue
+import iad1tya.echo.music.playback.queues.YouTubeQueue
+import iad1tya.echo.music.ui.component.IconButton
+import iad1tya.echo.music.ui.component.LocalMenuState
+import iad1tya.echo.music.ui.component.YouTubeGridItem
+import iad1tya.echo.music.ui.component.YouTubeListItem
+import iad1tya.echo.music.ui.component.shimmer.GridItemPlaceHolder
+import iad1tya.echo.music.ui.component.shimmer.ListItemPlaceHolder
+import iad1tya.echo.music.ui.component.shimmer.ShimmerHost
+import iad1tya.echo.music.ui.menu.YouTubeAlbumMenu
+import iad1tya.echo.music.ui.menu.YouTubeArtistMenu
+import iad1tya.echo.music.ui.menu.YouTubePlaylistMenu
+import iad1tya.echo.music.ui.menu.YouTubeSongMenu
+import iad1tya.echo.music.ui.utils.backToMain
+import iad1tya.echo.music.viewmodels.ArtistItemsViewModel
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
 @Composable
@@ -156,21 +163,19 @@ fun ArtistItemsScreen(
                                                 coroutineScope = coroutineScope,
                                                 onDismiss = menuState::dismiss,
                                             )
+
                                         is EpisodeItem ->
                                             YouTubeSongMenu(
                                                 song = item.asSongItem(),
                                                 navController = navController,
                                                 onDismiss = menuState::dismiss,
                                             )
-                                        is PodcastItem ->
-                                            YouTubePlaylistMenu(
-                                                playlist = item.asPlaylistItem(),
-                                                coroutineScope = coroutineScope,
-                                                onDismiss = menuState::dismiss,
-                                            )
+
+                                        is PodcastItem -> {}
                                     }
                                 }
                             },
+                            onLongClick = {},
                         ) {
                             Icon(
                                 painter = painterResource(R.drawable.more_vert),
@@ -186,10 +191,14 @@ fun ArtistItemsScreen(
                                     if (item.id == mediaMetadata?.id) {
                                         playerConnection.player.togglePlayPause()
                                     } else {
+                                        val songs = itemsPage?.items
+                                            .orEmpty()
+                                            .filterIsInstance<SongItem>()
                                         playerConnection.playQueue(
-                                            YouTubeQueue(
-                                                item.endpoint ?: WatchEndpoint(videoId = item.id),
-                                                item.toMediaMetadata()
+                                            ListQueue(
+                                                title = title,
+                                                items = songs.map { it.toMediaItem() },
+                                                startIndex = songs.indexOfFirst { it.id == item.id }.coerceAtLeast(0),
                                             ),
                                         )
                                     }
@@ -198,13 +207,20 @@ fun ArtistItemsScreen(
                                 is AlbumItem -> navController.navigate("album/${item.id}")
                                 is ArtistItem -> navController.navigate("artist/${item.id}")
                                 is PlaylistItem -> navController.navigate("online_playlist/${item.id}")
-                                is EpisodeItem -> playerConnection.playQueue(
-                                    YouTubeQueue(
-                                        item.endpoint ?: WatchEndpoint(videoId = item.id),
-                                        item.asSongItem().toMediaMetadata()
-                                    )
-                                )
                                 is PodcastItem -> navController.navigate("podcast/${item.id}")
+                                is EpisodeItem -> {
+                                    val songItem = item.asSongItem()
+                                    if (songItem.id == mediaMetadata?.id) {
+                                        playerConnection.player.togglePlayPause()
+                                    } else {
+                                        playerConnection.playQueue(
+                                            YouTubeQueue(
+                                                WatchEndpoint(videoId = songItem.id),
+                                                songItem.toMediaMetadata()
+                                            ),
+                                        )
+                                    }
+                                }
                             }
                         },
                 )
@@ -254,13 +270,13 @@ fun ArtistItemsScreen(
                                     is AlbumItem -> navController.navigate("album/${item.id}")
                                     is ArtistItem -> navController.navigate("artist/${item.id}")
                                     is PlaylistItem -> navController.navigate("online_playlist/${item.id}")
-                                    is EpisodeItem -> playerConnection.playQueue(
-                                        YouTubeQueue(
-                                            item.endpoint ?: WatchEndpoint(videoId = item.id),
-                                            item.asSongItem().toMediaMetadata()
-                                        )
-                                    )
                                     is PodcastItem -> navController.navigate("podcast/${item.id}")
+                                    is EpisodeItem -> playerConnection.playQueue(
+                                         YouTubeQueue(
+                                             item.endpoint ?: WatchEndpoint(videoId = item.id),
+                                             item.asSongItem().toMediaMetadata()
+                                         )
+                                     )
                                 }
                             },
                             onLongClick = {
@@ -289,16 +305,14 @@ fun ArtistItemsScreen(
                                             coroutineScope = coroutineScope,
                                             onDismiss = menuState::dismiss
                                         )
+
                                         is EpisodeItem -> YouTubeSongMenu(
                                             song = item.asSongItem(),
                                             navController = navController,
                                             onDismiss = menuState::dismiss
                                         )
-                                        is PodcastItem -> YouTubePlaylistMenu(
-                                            playlist = item.asPlaylistItem(),
-                                            coroutineScope = coroutineScope,
-                                            onDismiss = menuState::dismiss
-                                        )
+
+                                        is PodcastItem -> {}
                                     }
                                 }
                             }
@@ -328,6 +342,43 @@ fun ArtistItemsScreen(
                     painterResource(R.drawable.arrow_back),
                     contentDescription = null,
                 )
+            }
+        },
+        actions = {
+            val songs = itemsPage?.items.orEmpty().filterIsInstance<SongItem>()
+            if (songs.isNotEmpty()) {
+                IconButton(
+                    onClick = {
+                        playerConnection.playQueue(
+                            ListQueue(
+                                title = title,
+                                items = songs.map { it.toMediaItem() },
+                            ),
+                        )
+                    },
+                    onLongClick = {},
+                ) {
+                    Icon(
+                        painter = painterResource(R.drawable.play),
+                        contentDescription = null,
+                    )
+                }
+                IconButton(
+                    onClick = {
+                        playerConnection.playQueue(
+                            ListQueue(
+                                title = title,
+                                items = songs.shuffled().map { it.toMediaItem() },
+                            ),
+                        )
+                    },
+                    onLongClick = {},
+                ) {
+                    Icon(
+                        painter = painterResource(R.drawable.shuffle),
+                        contentDescription = null,
+                    )
+                }
             }
         },
     )

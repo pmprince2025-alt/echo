@@ -245,6 +245,3 @@ node_modules/
 
 # TernJS port file
 .tern-port
-
-# Binary core file (contains secrets)
-core

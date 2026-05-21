@@ -1,4 +1,9 @@
-package prince.sonic.music.ui.component
+
+
+
+
+
+package iad1tya.echo.music.ui.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

@@ -1,8 +1,13 @@
-package prince.sonic.music.lyrics
+
+
+
+
+
+package iad1tya.echo.music.lyrics
 
 import android.content.Context
-import com.echo.innertube.YouTube
-import com.echo.innertube.models.WatchEndpoint
+import iad1tya.echo.music.innertube.YouTube
+import iad1tya.echo.music.innertube.models.WatchEndpoint
 
 object YouTubeLyricsProvider : LyricsProvider {
     override val name = "YouTube Music"
@@ -13,6 +18,7 @@ object YouTubeLyricsProvider : LyricsProvider {
         id: String,
         title: String,
         artist: String,
+        album: String?,
         duration: Int,
     ): Result<String> =
         runCatching {
@@ -23,4 +29,15 @@ object YouTubeLyricsProvider : LyricsProvider {
                         ?: throw IllegalStateException("Lyrics endpoint not found"),
                 ).getOrThrow() ?: throw IllegalStateException("Lyrics unavailable")
         }
+
+    override suspend fun getAllLyrics(
+        id: String,
+        title: String,
+        artist: String,
+        album: String?,
+        duration: Int,
+        callback: (String) -> Unit,
+    ) {
+        getLyrics(id, title, artist, album, duration).onSuccess(callback)
+    }
 }

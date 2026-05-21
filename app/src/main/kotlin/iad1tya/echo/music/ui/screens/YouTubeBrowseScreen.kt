@@ -1,6 +1,11 @@
+
+
+
+
+
 @file:Suppress("UNUSED_EXPRESSION")
 
-package prince.sonic.music.ui.screens
+package iad1tya.echo.music.ui.screens
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
@@ -17,7 +22,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBars
-import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
@@ -44,34 +48,34 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.fastForEach
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.echo.innertube.models.AlbumItem
-import com.echo.innertube.models.ArtistItem
-import com.echo.innertube.models.EpisodeItem
-import com.echo.innertube.models.PlaylistItem
-import com.echo.innertube.models.PodcastItem
-import com.echo.innertube.models.SongItem
-import prince.sonic.music.LocalPlayerAwareWindowInsets
-import prince.sonic.music.LocalPlayerConnection
-import prince.sonic.music.R
-import prince.sonic.music.constants.ListItemHeight
-import prince.sonic.music.extensions.togglePlayPause
-import prince.sonic.music.models.toMediaMetadata
-import prince.sonic.music.playback.queues.YouTubeQueue
-import prince.sonic.music.ui.component.IconButton
-import prince.sonic.music.ui.component.LocalMenuState
-import prince.sonic.music.ui.component.NavigationTitle
-import prince.sonic.music.ui.component.YouTubeGridItem
-import prince.sonic.music.ui.component.YouTubeListItem
-import prince.sonic.music.ui.component.shimmer.GridItemPlaceHolder
-import prince.sonic.music.ui.component.shimmer.ShimmerHost
-import prince.sonic.music.ui.component.shimmer.TextPlaceholder
-import prince.sonic.music.ui.menu.YouTubeAlbumMenu
-import prince.sonic.music.ui.menu.YouTubeArtistMenu
-import prince.sonic.music.ui.menu.YouTubePlaylistMenu
-import prince.sonic.music.ui.menu.YouTubeSongMenu
-import prince.sonic.music.ui.utils.SnapLayoutInfoProvider
-import prince.sonic.music.ui.utils.backToMain
-import prince.sonic.music.viewmodels.YouTubeBrowseViewModel
+import iad1tya.echo.music.innertube.models.AlbumItem
+import iad1tya.echo.music.innertube.models.ArtistItem
+import iad1tya.echo.music.innertube.models.PlaylistItem
+import iad1tya.echo.music.innertube.models.SongItem
+import iad1tya.echo.music.innertube.models.PodcastItem
+import iad1tya.echo.music.innertube.models.EpisodeItem
+import iad1tya.echo.music.LocalPlayerAwareWindowInsets
+import iad1tya.echo.music.LocalPlayerConnection
+import iad1tya.echo.music.R
+import iad1tya.echo.music.constants.ListItemHeight
+import iad1tya.echo.music.extensions.togglePlayPause
+import iad1tya.echo.music.models.toMediaMetadata
+import iad1tya.echo.music.playback.queues.YouTubeQueue
+import iad1tya.echo.music.ui.component.IconButton
+import iad1tya.echo.music.ui.component.LocalMenuState
+import iad1tya.echo.music.ui.component.NavigationTitle
+import iad1tya.echo.music.ui.component.YouTubeGridItem
+import iad1tya.echo.music.ui.component.YouTubeListItem
+import iad1tya.echo.music.ui.component.shimmer.GridItemPlaceHolder
+import iad1tya.echo.music.ui.component.shimmer.ShimmerHost
+import iad1tya.echo.music.ui.component.shimmer.TextPlaceholder
+import iad1tya.echo.music.ui.menu.YouTubeAlbumMenu
+import iad1tya.echo.music.ui.menu.YouTubeArtistMenu
+import iad1tya.echo.music.ui.menu.YouTubePlaylistMenu
+import iad1tya.echo.music.ui.menu.YouTubeSongMenu
+import iad1tya.echo.music.ui.utils.SnapLayoutInfoProvider
+import iad1tya.echo.music.ui.utils.backToMain
+import iad1tya.echo.music.viewmodels.YouTubeBrowseViewModel
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
@@ -106,7 +110,7 @@ fun YouTubeBrowseScreen(
             contentPadding = LocalPlayerAwareWindowInsets.current.asPaddingValues(),
         ) {
             if (browseResult == null) {
-                item(key = "shimmer_loading") {
+                item {
                     ShimmerHost(
                         modifier = Modifier.animateItem()
                     ) {
@@ -116,9 +120,7 @@ fun YouTubeBrowseScreen(
                                 .padding(12.dp)
                                 .width(250.dp),
                         )
-                        LazyRow(
-                            contentPadding = WindowInsets.systemBars.only(WindowInsetsSides.Horizontal).asPaddingValues(),
-                        ) {
+                        LazyRow {
                             items(4) {
                                 GridItemPlaceHolder()
                             }
@@ -130,12 +132,12 @@ fun YouTubeBrowseScreen(
             browseResult?.items?.fastForEach {
                 if (it.items.isNotEmpty()) {
                     it.title?.let { title ->
-                        item(key = "section_title_${title.hashCode()}") {
+                        item {
                             NavigationTitle(title)
                         }
                     }
                     if (it.items.all { item -> item is SongItem }) {
-                        item(key = "section_songs_${it.title?.hashCode() ?: it.hashCode()}") {
+                        item {
                             LazyHorizontalGrid(
                                 state = lazyGridState,
                                 rows = GridCells.Fixed(4),
@@ -195,10 +197,8 @@ fun YouTubeBrowseScreen(
                             }
                         }
                     } else {
-                        item(key = "section_items_${it.title?.hashCode() ?: it.hashCode()}") {
-                            LazyRow(
-                                contentPadding = WindowInsets.systemBars.only(WindowInsetsSides.Horizontal).asPaddingValues(),
-                            ) {
+                        item {
+                            LazyRow {
                                 items(
                                     items = it.items,
                                 ) { item ->
@@ -253,18 +253,15 @@ fun YouTubeBrowseScreen(
                                                                     coroutineScope = coroutineScope,
                                                                     onDismiss = menuState::dismiss,
                                                                 )
+
                                                             is EpisodeItem ->
                                                                 YouTubeSongMenu(
                                                                     song = item.asSongItem(),
                                                                     navController = navController,
                                                                     onDismiss = menuState::dismiss,
                                                                 )
-                                                            is PodcastItem ->
-                                                                YouTubePlaylistMenu(
-                                                                    playlist = item.asPlaylistItem(),
-                                                                    coroutineScope = coroutineScope,
-                                                                    onDismiss = menuState::dismiss,
-                                                                )
+
+                                                            is PodcastItem -> {}
                                                         }
                                                     }
                                                 }

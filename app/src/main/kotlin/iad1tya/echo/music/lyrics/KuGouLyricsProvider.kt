@@ -1,10 +1,15 @@
-package prince.sonic.music.lyrics
+
+
+
+
+
+package iad1tya.echo.music.lyrics
 
 import android.content.Context
-import com.echo.kugou.KuGou
-import prince.sonic.music.constants.EnableKugouKey
-import prince.sonic.music.utils.dataStore
-import prince.sonic.music.utils.get
+import iad1tya.echo.music.kugou.KuGou
+import iad1tya.echo.music.constants.EnableKugouKey
+import iad1tya.echo.music.utils.dataStore
+import iad1tya.echo.music.utils.get
 
 object KuGouLyricsProvider : LyricsProvider {
     override val name = "Kugou"
@@ -15,16 +20,17 @@ object KuGouLyricsProvider : LyricsProvider {
         id: String,
         title: String,
         artist: String,
-        duration: Int
-    ): Result<String> =
-        KuGou.getLyrics(title, artist, duration)
+        album: String?,
+        duration: Int,
+    ): Result<String> = KuGou.getLyrics(title, artist, duration)
 
     override suspend fun getAllLyrics(
         id: String,
         title: String,
         artist: String,
+        album: String?,
         duration: Int,
-        callback: (String) -> Unit
+        callback: (String) -> Unit,
     ) {
         KuGou.getAllPossibleLyricsOptions(title, artist, duration, callback)
     }

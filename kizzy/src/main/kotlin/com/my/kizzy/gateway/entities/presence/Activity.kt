@@ -1,3 +1,8 @@
+
+
+
+
+
 package com.my.kizzy.gateway.entities.presence
 
 import kotlinx.serialization.SerialName
@@ -21,6 +26,8 @@ data class Activity(
     val statusDisplayType: Int? = 0,
     @SerialName("timestamps")
     val timestamps: Timestamps? = null,
+    @SerialName("platform")
+    val platform: String? = null,
     @SerialName("assets")
     val assets: Assets? = null,
     @SerialName("buttons")

@@ -1,7 +1,12 @@
-package prince.sonic.music.ui.utils
+
+
+
+
+
+package iad1tya.echo.music.ui.utils
 
 import androidx.navigation.NavController
-import prince.sonic.music.ui.screens.Screens
+import iad1tya.echo.music.ui.screens.Screens
 
 fun NavController.backToMain() {
     val mainRoutes = Screens.MainScreens.map { it.route }

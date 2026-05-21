@@ -1,6 +1,10 @@
-package prince.sonic.music.ui.screens.library
 
-import androidx.compose.foundation.BorderStroke
+
+
+
+
+package iad1tya.echo.music.ui.screens.library
+
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Box
@@ -11,16 +15,19 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.ui.draw.alpha
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.FilterChipDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.pulltorefresh.PullToRefreshDefaults
+import androidx.compose.material3.pulltorefresh.pullToRefresh
+import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -32,6 +39,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.painterResource
@@ -41,34 +49,35 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import prince.sonic.music.LocalPlayerAwareWindowInsets
-import prince.sonic.music.LocalPlayerConnection
-import prince.sonic.music.R
-import prince.sonic.music.constants.CONTENT_TYPE_HEADER
-import prince.sonic.music.constants.CONTENT_TYPE_SONG
-import prince.sonic.music.constants.HideExplicitKey
-import prince.sonic.music.constants.SongFilter
-import prince.sonic.music.constants.SongFilterKey
-import prince.sonic.music.constants.SongSortDescendingKey
-import prince.sonic.music.constants.SongSortType
-import prince.sonic.music.constants.SongSortTypeKey
-import prince.sonic.music.constants.YtmSyncKey
-import prince.sonic.music.extensions.toMediaItem
-import prince.sonic.music.extensions.togglePlayPause
-import prince.sonic.music.playback.queues.ListQueue
-import prince.sonic.music.ui.component.ChipsRow
-import prince.sonic.music.ui.component.HideOnScrollFAB
-import prince.sonic.music.ui.component.LocalMenuState
-import prince.sonic.music.ui.component.SongListItem
-import prince.sonic.music.ui.component.SortHeader
-import prince.sonic.music.ui.menu.SelectionSongMenu
-import prince.sonic.music.ui.menu.SongMenu
-import prince.sonic.music.ui.utils.ItemWrapper
-import prince.sonic.music.utils.rememberEnumPreference
-import prince.sonic.music.utils.rememberPreference
-import prince.sonic.music.viewmodels.LibrarySongsViewModel
+import iad1tya.echo.music.LocalPlayerAwareWindowInsets
+import iad1tya.echo.music.LocalPlayerConnection
+import iad1tya.echo.music.R
+import iad1tya.echo.music.constants.CONTENT_TYPE_HEADER
+import iad1tya.echo.music.constants.CONTENT_TYPE_SONG
+import iad1tya.echo.music.constants.DisableBlurKey
+import iad1tya.echo.music.constants.HideExplicitKey
+import iad1tya.echo.music.constants.SongFilter
+import iad1tya.echo.music.constants.SongFilterKey
+import iad1tya.echo.music.constants.SongSortDescendingKey
+import iad1tya.echo.music.constants.SongSortType
+import iad1tya.echo.music.constants.SongSortTypeKey
+import iad1tya.echo.music.constants.YtmSyncKey
+import iad1tya.echo.music.extensions.toMediaItem
+import iad1tya.echo.music.extensions.togglePlayPause
+import iad1tya.echo.music.playback.queues.ListQueue
+import iad1tya.echo.music.ui.component.ChipsRow
+import iad1tya.echo.music.ui.component.HideOnScrollFAB
+import iad1tya.echo.music.ui.component.LocalMenuState
+import iad1tya.echo.music.ui.component.SongListItem
+import iad1tya.echo.music.ui.component.SortHeader
+import iad1tya.echo.music.ui.menu.SelectionSongMenu
+import iad1tya.echo.music.ui.menu.SongMenu
+import iad1tya.echo.music.ui.utils.ItemWrapper
+import iad1tya.echo.music.utils.rememberEnumPreference
+import iad1tya.echo.music.utils.rememberPreference
+import iad1tya.echo.music.viewmodels.LibrarySongsViewModel
 
-@OptIn(ExperimentalFoundationApi::class)
+@OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun LibrarySongsScreen(
     navController: NavController,
@@ -89,9 +98,11 @@ fun LibrarySongsScreen(
     val (sortDescending, onSortDescendingChange) = rememberPreference(SongSortDescendingKey, true)
 
     val (ytmSync) = rememberPreference(YtmSyncKey, true)
+    val (disableBlur) = rememberPreference(DisableBlurKey, false)
     val hideExplicit by rememberPreference(key = HideExplicitKey, defaultValue = false)
 
     val songs by viewModel.allSongs.collectAsState()
+    val isRefreshing by viewModel.isRefreshing.collectAsState()
 
     var filter by rememberEnumPreference(SongFilterKey, SongFilter.LIKED)
 
@@ -100,7 +111,6 @@ fun LibrarySongsScreen(
             when (filter) {
                 SongFilter.LIKED -> viewModel.syncLikedSongs()
                 SongFilter.LIBRARY -> viewModel.syncLibrarySongs()
-                SongFilter.UPLOADED -> viewModel.syncUploadedSongs()
                 else -> return@LaunchedEffect
             }
         }
@@ -112,6 +122,7 @@ fun LibrarySongsScreen(
     }
 
     val lazyListState = rememberLazyListState()
+    val pullRefreshState = rememberPullToRefreshState()
 
     val backStackEntry by navController.currentBackStackEntryAsState()
     val scrollToTop =
@@ -125,7 +136,13 @@ fun LibrarySongsScreen(
     }
 
     Box(
-        modifier = Modifier.fillMaxSize(),
+        modifier =
+            Modifier.fillMaxSize()
+                .pullToRefresh(
+                    state = pullRefreshState,
+                    isRefreshing = isRefreshing,
+                    onRefresh = { if (ytmSync) viewModel.refresh(filter) }
+                ),
     ) {
         LazyColumn(
             state = lazyListState,
@@ -142,8 +159,7 @@ fun LibrarySongsScreen(
                         selected = true,
                         colors = FilterChipDefaults.filterChipColors(containerColor = MaterialTheme.colorScheme.surface),
                         onClick = onDeselect,
-                        shape = RoundedCornerShape(8.dp),
-                        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline),
+                        shape = RoundedCornerShape(16.dp),
                         leadingIcon = {
                             Icon(
                                 painter = painterResource(R.drawable.close),
@@ -156,9 +172,7 @@ fun LibrarySongsScreen(
                         listOf(
                             SongFilter.LIKED to stringResource(R.string.filter_liked),
                             SongFilter.LIBRARY to stringResource(R.string.filter_library),
-                            SongFilter.UPLOADED to stringResource(R.string.filter_uploaded),
                             SongFilter.DOWNLOADED to stringResource(R.string.filter_downloaded),
-                            SongFilter.LOCAL to "Local",
                         ),
                         currentValue = filter,
                         onValueUpdate = {
@@ -293,6 +307,11 @@ fun LibrarySongsScreen(
                         }
                     },
                     isSelected = songWrapper.isSelected && selection,
+                    swipeContentBackgroundColor = if (disableBlur) {
+                        MaterialTheme.colorScheme.surface
+                    } else {
+                        Color.Transparent
+                    },
                     modifier =
                     Modifier
                         .fillMaxWidth()
@@ -334,7 +353,7 @@ fun LibrarySongsScreen(
             visible = songs.isNotEmpty() == true,
             lazyListState = lazyListState,
             icon = R.drawable.shuffle,
-            text = "Random",
+            label = context.getString(R.string.shuffle),
             onClick = {
                 playerConnection.playQueue(
                     ListQueue(
@@ -343,6 +362,14 @@ fun LibrarySongsScreen(
                     ),
                 )
             },
+        )
+
+        PullToRefreshDefaults.Indicator(
+            isRefreshing = isRefreshing,
+            state = pullRefreshState,
+            modifier = Modifier
+                .align(Alignment.TopCenter)
+                .padding(LocalPlayerAwareWindowInsets.current.asPaddingValues()),
         )
     }
 }

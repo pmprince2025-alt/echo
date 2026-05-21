@@ -1,11 +1,16 @@
-package prince.sonic.music.extensions
 
-import prince.sonic.music.models.PersistQueue
-import prince.sonic.music.models.QueueData
-import prince.sonic.music.models.QueueType
-import prince.sonic.music.models.MediaMetadata
-import prince.sonic.music.playback.queues.*
-import prince.sonic.music.db.entities.AlbumEntity
+
+
+
+
+package iad1tya.echo.music.extensions
+
+import iad1tya.echo.music.models.PersistQueue
+import iad1tya.echo.music.models.QueueData
+import iad1tya.echo.music.models.QueueType
+import iad1tya.echo.music.models.MediaMetadata
+import iad1tya.echo.music.playback.queues.*
+import iad1tya.echo.music.db.entities.AlbumEntity
 
 fun Queue.toPersistQueue(
     title: String?,

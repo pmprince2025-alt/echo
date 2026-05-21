@@ -1,7 +1,12 @@
-package prince.sonic.music.models
 
-import com.echo.innertube.models.YTItem
-import prince.sonic.music.db.entities.LocalItem
+
+
+
+
+package iad1tya.echo.music.models
+
+import iad1tya.echo.music.innertube.models.YTItem
+import iad1tya.echo.music.db.entities.LocalItem
 
 data class SimilarRecommendation(
     val title: LocalItem,

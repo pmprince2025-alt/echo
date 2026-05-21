@@ -1,12 +1,17 @@
-package prince.sonic.music.viewmodels
+
+
+
+
+
+package iad1tya.echo.music.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.echo.innertube.YouTube
-import prince.sonic.music.constants.statToPeriod
-import prince.sonic.music.db.MusicDatabase
-import prince.sonic.music.ui.screens.OptionStats
-import prince.sonic.music.utils.reportException
+import iad1tya.echo.music.innertube.YouTube
+import iad1tya.echo.music.constants.statToPeriod
+import iad1tya.echo.music.db.MusicDatabase
+import iad1tya.echo.music.ui.screens.OptionStats
+import iad1tya.echo.music.utils.reportException
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow

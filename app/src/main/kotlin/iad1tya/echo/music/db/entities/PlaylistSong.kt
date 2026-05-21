@@ -1,4 +1,9 @@
-package prince.sonic.music.db.entities
+
+
+
+
+
+package iad1tya.echo.music.db.entities
 
 import androidx.room.Embedded
 import androidx.room.Relation

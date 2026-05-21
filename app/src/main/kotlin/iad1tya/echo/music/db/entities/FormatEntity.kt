@@ -1,4 +1,9 @@
-package prince.sonic.music.db.entities
+
+
+
+
+
+package iad1tya.echo.music.db.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -13,6 +18,6 @@ data class FormatEntity(
     val sampleRate: Int?,
     val contentLength: Long,
     val loudnessDb: Double?,
-    @Deprecated("playbackTrackingUrl should be retrieved from a fresh player request")
+    val perceptualLoudnessDb: Double? = null,
     val playbackUrl: String?
 )

@@ -1,4 +1,9 @@
-package prince.sonic.music.ui.utils
+
+
+
+
+
+package iad1tya.echo.music.ui.utils
 
 import androidx.compose.animation.core.AnimationSpec
 import androidx.compose.animation.core.DecayAnimationSpec
@@ -20,7 +25,7 @@ import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 fun appBarScrollBehavior(
     state: TopAppBarState = rememberTopAppBarState(),
     canScroll: () -> Boolean = { true },
-    snapAnimationSpec: AnimationSpec<Float>? = spring(stiffness = Spring.StiffnessMedium),
+    snapAnimationSpec: AnimationSpec<Float>? = spring(stiffness = Spring.StiffnessMediumLow),
     flingAnimationSpec: DecayAnimationSpec<Float>? = rememberSplineBasedDecay(),
 ): TopAppBarScrollBehavior =
     AppBarScrollBehavior(

@@ -1,4 +1,9 @@
-package prince.sonic.music.extensions
+
+
+
+
+
+package iad1tya.echo.music.extensions
 
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope

@@ -1,42 +1,48 @@
-package prince.sonic.music.viewmodels
+
+
+
+
+
+package iad1tya.echo.music.viewmodels
 
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import prince.sonic.music.constants.HideExplicitKey
-import prince.sonic.music.db.MusicDatabase
-import prince.sonic.music.db.entities.Song
-import prince.sonic.music.extensions.filterExplicit
-import prince.sonic.music.utils.dataStore
-import prince.sonic.music.utils.get
+import iad1tya.echo.music.constants.HideExplicitKey
+import iad1tya.echo.music.db.MusicDatabase
+import iad1tya.echo.music.db.entities.Song
+import iad1tya.echo.music.extensions.filterExplicit
+import iad1tya.echo.music.utils.dataStore
+import iad1tya.echo.music.utils.get
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import prince.sonic.music.di.PlayerCache
-import prince.sonic.music.di.DownloadCache
-import androidx.media3.datasource.cache.SimpleCache
+import iad1tya.echo.music.di.PlayerCache
+import iad1tya.echo.music.di.DownloadCache
+import androidx.media3.datasource.cache.Cache
 import java.time.LocalDateTime
+import kotlinx.coroutines.Dispatchers
 
 @HiltViewModel
 class CachePlaylistViewModel @Inject constructor(
     @ApplicationContext private val context: Context,
     private val database: MusicDatabase,
-    @PlayerCache private val playerCache: SimpleCache,
-    @DownloadCache private val downloadCache: SimpleCache
+    @PlayerCache private val playerCache: Cache,
+    @DownloadCache private val downloadCache: Cache
 ) : ViewModel() {
 
     private val _cachedSongs = MutableStateFlow<List<Song>>(emptyList())
     val cachedSongs: StateFlow<List<Song>> = _cachedSongs
 
     init {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             while (true) {
                 val hideExplicit = context.dataStore.get(HideExplicitKey, false)
-                val cachedIds = playerCache.keys.mapNotNull { it?.toString() }.toSet()
-                val downloadedIds = downloadCache.keys.mapNotNull { it?.toString() }.toSet()
+                val cachedIds = playerCache.keys.toSet()
+                val downloadedIds = downloadCache.keys.toSet()
                 val pureCacheIds = cachedIds.subtract(downloadedIds)
 
                 val songs = if (pureCacheIds.isNotEmpty()) {

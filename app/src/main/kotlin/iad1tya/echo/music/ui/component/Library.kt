@@ -1,4 +1,9 @@
-package prince.sonic.music.ui.component
+
+
+
+
+
+package iad1tya.echo.music.ui.component
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
@@ -6,21 +11,20 @@ import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.hapticfeedback.HapticFeedbackType
-import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavController
-import com.echo.innertube.models.PlaylistItem
-import com.echo.innertube.models.WatchEndpoint
-import prince.sonic.music.R
-import prince.sonic.music.db.entities.Album
-import prince.sonic.music.db.entities.Artist
-import prince.sonic.music.db.entities.Playlist
-import prince.sonic.music.ui.menu.AlbumMenu
-import prince.sonic.music.ui.menu.ArtistMenu
-import prince.sonic.music.ui.menu.PlaylistMenu
-import prince.sonic.music.ui.menu.YouTubePlaylistMenu
+import iad1tya.echo.music.innertube.models.PlaylistItem
+import iad1tya.echo.music.innertube.models.WatchEndpoint
+import iad1tya.echo.music.R
+import iad1tya.echo.music.db.entities.Album
+import iad1tya.echo.music.db.entities.Artist
+import iad1tya.echo.music.db.entities.Playlist
+import iad1tya.echo.music.ui.menu.AlbumMenu
+import iad1tya.echo.music.ui.menu.ArtistMenu
+import iad1tya.echo.music.ui.menu.PlaylistMenu
+import iad1tya.echo.music.ui.menu.YouTubePlaylistMenu
 import kotlinx.coroutines.CoroutineScope
 
 @Composable
@@ -65,9 +69,7 @@ fun LibraryArtistGridItem(
     coroutineScope: CoroutineScope,
     artist: Artist,
     modifier: Modifier = Modifier
-) {
-    val haptic = LocalHapticFeedback.current
-    ArtistGridItem(
+) = ArtistGridItem(
     artist = artist,
     fillMaxWidth = true,
     modifier = modifier
@@ -77,7 +79,6 @@ fun LibraryArtistGridItem(
                 navController.navigate("artist/${artist.id}")
             },
             onLongClick = {
-                haptic.performHapticFeedback(HapticFeedbackType.LongPress)
                 menuState.show {
                     ArtistMenu(
                         originalArtist = artist,
@@ -88,7 +89,6 @@ fun LibraryArtistGridItem(
             }
         )
 )
-}
 
 @Composable
 fun LibraryAlbumListItem(
@@ -137,9 +137,7 @@ fun LibraryAlbumGridItem(
     album: Album,
     isActive: Boolean = false,
     isPlaying: Boolean = false
-) {
-    val haptic = LocalHapticFeedback.current
-    AlbumGridItem(
+) = AlbumGridItem(
     album = album,
     isActive = isActive,
     isPlaying = isPlaying,
@@ -152,7 +150,6 @@ fun LibraryAlbumGridItem(
                 navController.navigate("album/${album.id}")
             },
             onLongClick = {
-                haptic.performHapticFeedback(HapticFeedbackType.LongPress)
                 menuState.show {
                     AlbumMenu(
                         originalAlbum = album,
@@ -163,7 +160,6 @@ fun LibraryAlbumGridItem(
             }
         )
 )
-}
 
 @Composable
 fun LibraryPlaylistListItem(
@@ -171,10 +167,22 @@ fun LibraryPlaylistListItem(
     menuState: MenuState,
     coroutineScope: CoroutineScope,
     playlist: Playlist,
-    modifier: Modifier = Modifier
-) = PlaylistListItem(
-    playlist = playlist,
-    trailingContent = {
+    modifier: Modifier = Modifier,
+    showDragHandle: Boolean = false,
+    dragHandleModifier: Modifier = Modifier,
+) {
+    val trailing: @Composable RowScope.() -> Unit = {
+        if (showDragHandle) {
+            androidx.compose.material3.IconButton(
+                onClick = { },
+                modifier = dragHandleModifier,
+            ) {
+                Icon(
+                    painter = painterResource(R.drawable.drag_handle),
+                    contentDescription = null,
+                )
+            }
+        }
         androidx.compose.material3.IconButton(
             onClick = {
                 menuState.show {
@@ -220,78 +228,25 @@ fun LibraryPlaylistListItem(
                 contentDescription = null
             )
         }
-    },
-    modifier = modifier
-        .fillMaxWidth()
-        .clickable {
-            if (!playlist.playlist.isEditable && playlist.songCount == 0 && playlist.playlist.remoteSongCount != 0)
-                navController.navigate("online_playlist/${playlist.playlist.browseId}")
-            else
-                navController.navigate("local_playlist/${playlist.id}")
-        }
-)
+    }
 
-@OptIn(ExperimentalFoundationApi::class)
-@Composable
-fun LibraryPlaylistGridItem(
-    navController: NavController,
-    menuState: MenuState,
-    coroutineScope: CoroutineScope,
-    playlist: Playlist,
-    modifier: Modifier = Modifier
-) {
-    val haptic = LocalHapticFeedback.current
-    PlaylistGridItem(
-    playlist = playlist,
-    fillMaxWidth = true,
-    modifier = modifier
-        .fillMaxWidth()
-        .combinedClickable(
-            onClick = {
-                if (!playlist.playlist.isEditable && playlist.songCount == 0 && playlist.playlist.remoteSongCount != 0)
-                    navController.navigate("online_playlist/${playlist.playlist.browseId}")
-                else
-                    navController.navigate("local_playlist/${playlist.id}")
-            },
-            onLongClick = {
-                haptic.performHapticFeedback(HapticFeedbackType.LongPress)
-                menuState.show {
-                    if (playlist.playlist.isEditable || playlist.songCount != 0) {
-                        PlaylistMenu(
-                            playlist = playlist,
-                            coroutineScope = coroutineScope,
-                            onDismiss = menuState::dismiss
-                        )
-                    } else {
-                        playlist.playlist.browseId?.let { browseId ->
-                            YouTubePlaylistMenu(
-                                playlist = PlaylistItem(
-                                    id = browseId,
-                                    title = playlist.playlist.name,
-                                    author = null,
-                                    songCountText = null,
-                                    thumbnail = playlist.thumbnails.getOrNull(0) ?: "",
-                                    playEndpoint = WatchEndpoint(
-                                        playlistId = browseId,
-                                        params = playlist.playlist.playEndpointParams
-                                    ),
-                                    shuffleEndpoint = WatchEndpoint(
-                                        playlistId = browseId,
-                                        params = playlist.playlist.shuffleEndpointParams
-                                    ),
-                                    radioEndpoint = WatchEndpoint(
-                                        playlistId = "RDAMPL$browseId",
-                                        params = playlist.playlist.radioEndpointParams
-                                    ),
-                                    isEditable = false
-                                ),
-                                coroutineScope = coroutineScope,
-                                onDismiss = menuState::dismiss
-                            )
-                        }
-                    }
-                }
-            }
-        )
-)
+    val openPlaylist: () -> Unit = {
+        if (
+            !playlist.playlist.isEditable &&
+            playlist.songCount == 0 &&
+            playlist.playlist.remoteSongCount != 0
+        ) {
+            navController.navigate("online_playlist/${playlist.playlist.browseId}")
+        } else {
+            navController.navigate("local_playlist/${playlist.id}")
+        }
+    }
+
+    LibraryPlaylistFeatureCard(
+        playlist = playlist,
+        trailingContent = trailing,
+        modifier = modifier
+            .fillMaxWidth()
+            .clickable(onClick = openPlaylist),
+    )
 }

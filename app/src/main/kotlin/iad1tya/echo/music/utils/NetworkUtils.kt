@@ -1,4 +1,9 @@
-package prince.sonic.music.utils
+
+
+
+
+
+package iad1tya.echo.music.utils
 
 import android.content.Context
 import android.net.ConnectivityManager

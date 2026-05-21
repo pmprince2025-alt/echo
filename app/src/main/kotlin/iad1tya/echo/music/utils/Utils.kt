@@ -1,12 +1,16 @@
-package prince.sonic.music.utils
+
+
+
+
+
+package iad1tya.echo.music.utils
 
 import android.content.Context
 import android.content.res.Configuration
-import timber.log.Timber
 import java.util.Locale
 
 fun reportException(throwable: Throwable) {
-    Timber.e(throwable)
+    throwable.printStackTrace()
 }
 
 @Suppress("DEPRECATION")

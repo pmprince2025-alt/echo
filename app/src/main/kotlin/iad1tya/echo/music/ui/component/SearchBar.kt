@@ -1,4 +1,9 @@
-package prince.sonic.music.ui.component
+
+
+
+
+
+package iad1tya.echo.music.ui.component
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.core.animateFloatAsState
@@ -26,7 +31,6 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.systemBars
-import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -53,6 +57,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusProperties
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
@@ -77,7 +82,7 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.lerp
 import androidx.compose.ui.util.lerp
-import prince.sonic.music.constants.AppBarHeight
+import iad1tya.echo.music.constants.AppBarHeight
 import kotlin.math.max
 
 @ExperimentalMaterial3Api
@@ -101,6 +106,7 @@ fun TopSearch(
     windowInsets: WindowInsets = WindowInsets.systemBars,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     focusRequester: FocusRequester = remember { FocusRequester() },
+    leftFocusRequester: FocusRequester? = null,
     content: @Composable ColumnScope.() -> Unit,
 ) {
     val animationProgress: Float by animateFloatAsState(
@@ -215,6 +221,7 @@ fun TopSearch(
                     ),
                     interactionSource = interactionSource,
                     focusRequester = focusRequester,
+                    leftFocusRequester = leftFocusRequester,
                 )
 
                 if (animationProgress > 0) {
@@ -248,6 +255,7 @@ private fun SearchBarInputField(
     colors: TextFieldColors,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     focusRequester: FocusRequester = remember { FocusRequester() },
+    leftFocusRequester: FocusRequester? = null,
 ) {
     val focused = interactionSource.collectIsFocusedAsState().value
     val textColor = LocalTextStyle.current.color.takeOrElse {
@@ -271,6 +279,15 @@ private fun SearchBarInputField(
             modifier = Modifier
                 .weight(1f)
                 .focusRequester(focusRequester)
+                .then(
+                    if (leftFocusRequester != null) {
+                        Modifier.focusProperties {
+                            left = leftFocusRequester
+                        }
+                    } else {
+                        Modifier
+                    }
+                )
                 .pointerInput(Unit) {
                     awaitEachGesture {
                         awaitFirstDown(pass = PointerEventPass.Initial)

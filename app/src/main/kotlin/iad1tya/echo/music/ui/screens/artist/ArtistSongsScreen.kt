@@ -1,4 +1,9 @@
-package prince.sonic.music.ui.screens.artist
+
+
+
+
+
+package iad1tya.echo.music.ui.screens.artist
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.combinedClickable
@@ -33,27 +38,27 @@ import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavController
-import prince.sonic.music.LocalPlayerAwareWindowInsets
-import prince.sonic.music.LocalPlayerConnection
-import prince.sonic.music.R
-import prince.sonic.music.constants.ArtistSongSortDescendingKey
-import prince.sonic.music.constants.ArtistSongSortType
-import prince.sonic.music.constants.ArtistSongSortTypeKey
-import prince.sonic.music.constants.CONTENT_TYPE_HEADER
-import prince.sonic.music.constants.HideExplicitKey
-import prince.sonic.music.extensions.toMediaItem
-import prince.sonic.music.extensions.togglePlayPause
-import prince.sonic.music.playback.queues.ListQueue
-import prince.sonic.music.ui.component.HideOnScrollFAB
-import prince.sonic.music.ui.component.IconButton
-import prince.sonic.music.ui.component.LocalMenuState
-import prince.sonic.music.ui.component.SongListItem
-import prince.sonic.music.ui.component.SortHeader
-import prince.sonic.music.ui.menu.SongMenu
-import prince.sonic.music.ui.utils.backToMain
-import prince.sonic.music.utils.rememberEnumPreference
-import prince.sonic.music.utils.rememberPreference
-import prince.sonic.music.viewmodels.ArtistSongsViewModel
+import iad1tya.echo.music.LocalPlayerAwareWindowInsets
+import iad1tya.echo.music.LocalPlayerConnection
+import iad1tya.echo.music.R
+import iad1tya.echo.music.constants.ArtistSongSortDescendingKey
+import iad1tya.echo.music.constants.ArtistSongSortType
+import iad1tya.echo.music.constants.ArtistSongSortTypeKey
+import iad1tya.echo.music.constants.CONTENT_TYPE_HEADER
+import iad1tya.echo.music.constants.HideExplicitKey
+import iad1tya.echo.music.extensions.toMediaItem
+import iad1tya.echo.music.extensions.togglePlayPause
+import iad1tya.echo.music.playback.queues.ListQueue
+import iad1tya.echo.music.ui.component.HideOnScrollFAB
+import iad1tya.echo.music.ui.component.IconButton
+import iad1tya.echo.music.ui.component.LocalMenuState
+import iad1tya.echo.music.ui.component.SongListItem
+import iad1tya.echo.music.ui.component.SortHeader
+import iad1tya.echo.music.ui.menu.SongMenu
+import iad1tya.echo.music.ui.utils.backToMain
+import iad1tya.echo.music.utils.rememberEnumPreference
+import iad1tya.echo.music.utils.rememberPreference
+import iad1tya.echo.music.viewmodels.ArtistSongsViewModel
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
 @Composable
@@ -199,6 +204,7 @@ fun ArtistSongsScreen(
         HideOnScrollFAB(
             lazyListState = lazyListState,
             icon = R.drawable.shuffle,
+            label = context.getString(R.string.shuffle),
             onClick = {
                 playerConnection.playQueue(
                     ListQueue(

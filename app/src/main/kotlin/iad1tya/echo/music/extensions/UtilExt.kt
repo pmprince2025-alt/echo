@@ -1,4 +1,9 @@
-package prince.sonic.music.extensions
+
+
+
+
+
+package iad1tya.echo.music.extensions
 
 fun <T> tryOrNull(block: () -> T): T? =
     try {

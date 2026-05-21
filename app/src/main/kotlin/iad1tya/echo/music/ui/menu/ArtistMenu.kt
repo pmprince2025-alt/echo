@@ -1,4 +1,9 @@
-package prince.sonic.music.ui.menu
+
+
+
+
+
+package iad1tya.echo.music.ui.menu
 
 import android.content.Intent
 import android.content.res.Configuration
@@ -17,7 +22,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.systemBars
-import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.HorizontalDivider
@@ -29,25 +33,33 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.ListItem
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import prince.sonic.music.LocalDatabase
-import prince.sonic.music.LocalPlayerConnection
-import prince.sonic.music.R
-import prince.sonic.music.constants.ArtistSongSortType
-import prince.sonic.music.db.entities.Artist
-import prince.sonic.music.extensions.toMediaItem
-import prince.sonic.music.playback.queues.ListQueue
-import prince.sonic.music.ui.component.ArtistListItem
-import prince.sonic.music.ui.component.NewAction
-import prince.sonic.music.ui.component.NewActionGrid
+import iad1tya.echo.music.LocalDatabase
+import iad1tya.echo.music.LocalPlayerConnection
+import iad1tya.echo.music.R
+import iad1tya.echo.music.constants.ArtistSongSortType
+import iad1tya.echo.music.constants.SpeedDialSongIdsKey
+import iad1tya.echo.music.db.entities.Artist
+import iad1tya.echo.music.extensions.toMediaItem
+import iad1tya.echo.music.playback.queues.ListQueue
+import iad1tya.echo.music.ui.component.ArtistListItem
+import iad1tya.echo.music.ui.component.NewAction
+import iad1tya.echo.music.ui.component.NewActionGrid
+import iad1tya.echo.music.utils.SpeedDialPin
+import iad1tya.echo.music.utils.SpeedDialPinType
+import iad1tya.echo.music.utils.parseSpeedDialPins
+import iad1tya.echo.music.utils.rememberPreference
+import iad1tya.echo.music.utils.serializeSpeedDialPins
+import iad1tya.echo.music.utils.toggleSpeedDialPin
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
@@ -65,6 +77,12 @@ fun ArtistMenu(
     val playerConnection = LocalPlayerConnection.current ?: return
     val artistState = database.artist(originalArtist.id).collectAsState(initial = originalArtist)
     val artist = artistState.value ?: originalArtist
+    val (speedDialSongIds, onSpeedDialSongIdsChange) = rememberPreference(SpeedDialSongIdsKey, "")
+    val speedDialPins = remember(speedDialSongIds) { parseSpeedDialPins(speedDialSongIds) }
+    val artistPin = remember(artist.id) { SpeedDialPin(type = SpeedDialPinType.ARTIST, id = artist.id) }
+    val isInSpeedDial = remember(speedDialPins, artistPin) {
+        speedDialPins.any { it.type == artistPin.type && it.id == artistPin.id }
+    }
 
     ArtistListItem(
         artist = artist,
@@ -89,6 +107,7 @@ fun ArtistMenu(
         ),
     ) {
         item {
+            // Enhanced Action Grid using NewMenuComponents
             NewActionGrid(
                 actions = buildList {
                     if (artist.songCount > 0) {
@@ -170,7 +189,7 @@ fun ArtistMenu(
                                 text = stringResource(R.string.share),
                                 onClick = {
                                     onDismiss()
-                                val intent = Intent().apply {
+                                    val intent = Intent().apply {
                                         action = Intent.ACTION_SEND
                                         type = "text/plain"
                                         putExtra(
@@ -188,9 +207,10 @@ fun ArtistMenu(
             )
         }
 
+        // Subscribe/Subscribed button
         item {
             ListItem(
-                headlineContent = { 
+                headlineContent = {
                     Text(text = if (artist.artist.bookmarkedAt != null) stringResource(R.string.subscribed) else stringResource(R.string.subscribe))
                 },
                 leadingContent = {
@@ -203,6 +223,29 @@ fun ArtistMenu(
                     database.transaction {
                         update(artist.artist.toggleLike())
                     }
+                }
+            )
+        }
+        item {
+            ListItem(
+                headlineContent = {
+                    Text(
+                        text = stringResource(
+                            if (isInSpeedDial) R.string.remove_from_speed_dial
+                            else R.string.pin_to_speed_dial
+                        )
+                    )
+                },
+                leadingContent = {
+                    Icon(
+                        painter = painterResource(if (isInSpeedDial) R.drawable.bookmark_filled else R.drawable.bookmark),
+                        contentDescription = null,
+                    )
+                },
+                modifier = Modifier.clickable {
+                    val updatedPins = toggleSpeedDialPin(speedDialPins, artistPin)
+                    onSpeedDialSongIdsChange(serializeSpeedDialPins(updatedPins))
+                    onDismiss()
                 }
             )
         }

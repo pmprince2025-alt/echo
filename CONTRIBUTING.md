@@ -95,8 +95,8 @@ If you want to test Firebase features:
 
 1. Create a Firebase project
 2. Add Android apps with package names:
-   - `prince.sonic.music` (release)
-   - `prince.sonic.music.debug` (debug)
+   - `iad1tya.echo.music` (release)
+   - `iad1tya.echo.music.debug` (debug)
 3. Copy the template and configure it with your Firebase credentials:
    ```bash
    cp app/google-services.json.template app/google-services.json

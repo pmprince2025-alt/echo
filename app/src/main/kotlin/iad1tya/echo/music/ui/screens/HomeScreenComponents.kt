@@ -58,10 +58,6 @@ import androidx.compose.ui.hapticfeedback.HapticFeedback
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.foundation.gestures.detectTapGestures
-import kotlinx.coroutines.launch
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -161,53 +157,34 @@ fun QuickPicksSection(
     ) { index ->
         val song = distinctQuickPicks[index]
         val isActive = song.id == mediaMetadata?.id
-        val scale = remember { androidx.compose.animation.core.Animatable(1f) }
-        val coroutineScope = androidx.compose.runtime.rememberCoroutineScope()
 
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .graphicsLayer {
-                    scaleX = scale.value
-                    scaleY = scale.value
-                }
                 .maskClip(MaterialTheme.shapes.extraLarge)
                 .maskBorder(
-                    BorderStroke(1.dp, Brush.verticalGradient(
-                        colors = listOf(Color.White.copy(alpha = 0.4f), Color.Transparent)
-                    )),
+                    BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
                     MaterialTheme.shapes.extraLarge
                 )
-                .pointerInput(Unit) {
-                    detectTapGestures(
-                        onPress = {
-                            coroutineScope.launch {
-                                scale.animateTo(0.95f, animationSpec = androidx.compose.animation.core.tween(100))
-                            }
-                            tryAwaitRelease()
-                            coroutineScope.launch {
-                                scale.animateTo(1f, animationSpec = androidx.compose.animation.core.tween(150))
-                            }
-                        },
-                        onTap = {
-                            if (isActive) {
-                                playerConnection.player.togglePlayPause()
-                            } else {
-                                playerConnection.playQueue(YouTubeQueue.radio(song.toMediaMetadata()))
-                            }
-                        },
-                        onLongPress = {
-                            haptic.performHapticFeedback(HapticFeedbackType.LongPress)
-                            menuState.show {
-                                SongMenu(
-                                    originalSong = song,
-                                    navController = navController,
-                                    onDismiss = menuState::dismiss
-                                )
-                            }
+                .combinedClickable(
+                    onClick = {
+                        if (isActive) {
+                            playerConnection.player.togglePlayPause()
+                        } else {
+                            playerConnection.playQueue(YouTubeQueue.radio(song.toMediaMetadata()))
                         }
-                    )
-                }
+                    },
+                    onLongClick = {
+                        haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                        menuState.show {
+                            SongMenu(
+                                originalSong = song,
+                                navController = navController,
+                                onDismiss = menuState::dismiss
+                            )
+                        }
+                    }
+                )
         ) {
             AsyncImage(
                 model = ImageRequest.Builder(LocalContext.current)
@@ -227,7 +204,7 @@ fun QuickPicksSection(
                             colors = listOf(
                                 Color.Transparent,
                                 Color.Transparent,
-                                Color.Black.copy(alpha = 0.95f)
+                                Color.Black.copy(alpha = 0.7f)
                             )
                         )
                     )

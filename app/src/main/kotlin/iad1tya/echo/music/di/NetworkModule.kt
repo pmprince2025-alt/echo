@@ -1,6 +1,11 @@
-package prince.sonic.music.di
 
-import prince.sonic.music.utils.NetworkConnectivityObserver
+
+
+
+
+package iad1tya.echo.music.di
+
+import iad1tya.echo.music.utils.NetworkConnectivityObserver
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

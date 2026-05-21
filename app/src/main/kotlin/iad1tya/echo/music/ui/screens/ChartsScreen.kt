@@ -1,12 +1,15 @@
-package prince.sonic.music.ui.screens
+
+
+
+
+
+package iad1tya.echo.music.ui.screens
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.gestures.snapping.rememberSnapFlingBehavior
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.layout.safeDrawing
-import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -28,27 +31,27 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.echo.innertube.models.SongItem
-import com.echo.innertube.models.WatchEndpoint
-import prince.sonic.music.LocalPlayerAwareWindowInsets
-import prince.sonic.music.LocalPlayerConnection
-import prince.sonic.music.R
-import prince.sonic.music.constants.ListItemHeight
-import prince.sonic.music.extensions.togglePlayPause
-import prince.sonic.music.models.toMediaMetadata
-import prince.sonic.music.playback.queues.YouTubeQueue
-import prince.sonic.music.ui.component.LocalMenuState
-import prince.sonic.music.ui.component.IconButton
-import prince.sonic.music.ui.component.NavigationTitle
-import prince.sonic.music.ui.component.YouTubeGridItem
-import prince.sonic.music.ui.component.YouTubeListItem
-import prince.sonic.music.ui.component.shimmer.GridItemPlaceHolder
-import prince.sonic.music.ui.component.shimmer.ShimmerHost
-import prince.sonic.music.ui.component.shimmer.TextPlaceholder
-import prince.sonic.music.ui.menu.YouTubeSongMenu
-import prince.sonic.music.ui.utils.backToMain
-import prince.sonic.music.ui.utils.SnapLayoutInfoProvider
-import prince.sonic.music.viewmodels.ChartsViewModel
+import iad1tya.echo.music.innertube.models.SongItem
+import iad1tya.echo.music.innertube.models.WatchEndpoint
+import iad1tya.echo.music.LocalPlayerAwareWindowInsets
+import iad1tya.echo.music.LocalPlayerConnection
+import iad1tya.echo.music.R
+import iad1tya.echo.music.constants.ListItemHeight
+import iad1tya.echo.music.extensions.togglePlayPause
+import iad1tya.echo.music.models.toMediaMetadata
+import iad1tya.echo.music.playback.queues.YouTubeQueue
+import iad1tya.echo.music.ui.component.LocalMenuState
+import iad1tya.echo.music.ui.component.IconButton
+import iad1tya.echo.music.ui.component.NavigationTitle
+import iad1tya.echo.music.ui.component.YouTubeGridItem
+import iad1tya.echo.music.ui.component.YouTubeListItem
+import iad1tya.echo.music.ui.component.shimmer.GridItemPlaceHolder
+import iad1tya.echo.music.ui.component.shimmer.ShimmerHost
+import iad1tya.echo.music.ui.component.shimmer.TextPlaceholder
+import iad1tya.echo.music.ui.menu.YouTubeSongMenu
+import iad1tya.echo.music.ui.utils.backToMain
+import iad1tya.echo.music.ui.utils.SnapLayoutInfoProvider
+import iad1tya.echo.music.viewmodels.ChartsViewModel
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
@@ -178,7 +181,7 @@ fun ChartsScreen(
                         .asPaddingValues(),
                 ) {
                     chartsPage?.sections?.filter { it.title != "Top music videos" }?.forEach { section ->
-                        item(key = "section_title_${section.title}") {
+                        item {
                             NavigationTitle(
                                 title = when (section.title) {
                                     "Trending" -> stringResource(R.string.trending)
@@ -187,7 +190,7 @@ fun ChartsScreen(
                                 modifier = Modifier.animateItem(),
                             )
                         }
-                        item(key = "section_content_${section.title}") {
+                        item {
                             BoxWithConstraints(modifier = Modifier.fillMaxWidth()) {
                                 val horizontalLazyGridItemWidthFactor = if (maxWidth * 0.475f >= 320.dp) 0.475f else 0.9f
                                 val horizontalLazyGridItemWidth = maxWidth * horizontalLazyGridItemWidthFactor
@@ -275,13 +278,13 @@ fun ChartsScreen(
                     }
 
                     chartsPage?.sections?.find { it.title == "Top music videos" }?.let { topVideosSection ->
-                        item(key = "top_videos_title") {
+                        item {
                             NavigationTitle(
                                 title = stringResource(R.string.top_music_videos),
                                 modifier = Modifier.animateItem(),
                             )
                         }
-                        item(key = "top_videos_content") {
+                        item {
                             LazyRow(
                                 contentPadding = WindowInsets.systemBars
                                     .only(WindowInsetsSides.Horizontal)

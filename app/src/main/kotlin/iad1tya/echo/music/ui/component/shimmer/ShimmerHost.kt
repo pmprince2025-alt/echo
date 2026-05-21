@@ -1,4 +1,9 @@
-package prince.sonic.music.ui.component.shimmer
+
+
+
+
+
+package iad1tya.echo.music.ui.component.shimmer
 
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode
@@ -49,7 +54,7 @@ val ShimmerTheme =
         infiniteRepeatable(
             animation =
             tween(
-                durationMillis = 600,
+                durationMillis = 800,
                 easing = LinearEasing,
                 delayMillis = 250,
             ),

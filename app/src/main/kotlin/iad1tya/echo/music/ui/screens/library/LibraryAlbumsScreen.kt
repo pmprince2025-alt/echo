@@ -1,6 +1,10 @@
-package prince.sonic.music.ui.screens.library
 
-import androidx.compose.foundation.BorderStroke
+
+
+
+
+package iad1tya.echo.music.ui.screens.library
+
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -18,11 +22,15 @@ import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.FilterChipDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.pulltorefresh.PullToRefreshDefaults
+import androidx.compose.material3.pulltorefresh.pullToRefresh
+import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -32,7 +40,6 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.pluralStringResource
@@ -41,36 +48,36 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import prince.sonic.music.LocalPlayerAwareWindowInsets
-import prince.sonic.music.LocalPlayerConnection
-import prince.sonic.music.R
-import prince.sonic.music.constants.AlbumFilter
-import prince.sonic.music.constants.AlbumFilterKey
-import prince.sonic.music.constants.AlbumSortDescendingKey
-import prince.sonic.music.constants.AlbumSortType
-import prince.sonic.music.constants.AlbumSortTypeKey
-import prince.sonic.music.constants.AlbumViewTypeKey
-import prince.sonic.music.constants.CONTENT_TYPE_ALBUM
-import prince.sonic.music.constants.CONTENT_TYPE_HEADER
-import prince.sonic.music.constants.GridItemSize
-import prince.sonic.music.constants.GridItemsSizeKey
-import prince.sonic.music.constants.GridThumbnailHeight
-import prince.sonic.music.constants.HideExplicitKey
-import prince.sonic.music.constants.LibraryViewType
-import prince.sonic.music.constants.YtmSyncKey
-import prince.sonic.music.ui.component.ChipsRow
-import prince.sonic.music.ui.component.EmptyPlaceholder
-import prince.sonic.music.ui.component.LibraryAlbumGridItem
-import prince.sonic.music.ui.component.LibraryAlbumListItem
-import prince.sonic.music.ui.component.LocalMenuState
-import prince.sonic.music.ui.component.SortHeader
-import prince.sonic.music.utils.rememberEnumPreference
-import prince.sonic.music.utils.rememberPreference
-import prince.sonic.music.viewmodels.LibraryAlbumsViewModel
+import iad1tya.echo.music.LocalPlayerAwareWindowInsets
+import iad1tya.echo.music.LocalPlayerConnection
+import iad1tya.echo.music.R
+import iad1tya.echo.music.constants.AlbumFilter
+import iad1tya.echo.music.constants.AlbumFilterKey
+import iad1tya.echo.music.constants.AlbumSortDescendingKey
+import iad1tya.echo.music.constants.AlbumSortType
+import iad1tya.echo.music.constants.AlbumSortTypeKey
+import iad1tya.echo.music.constants.AlbumViewTypeKey
+import iad1tya.echo.music.constants.CONTENT_TYPE_ALBUM
+import iad1tya.echo.music.constants.CONTENT_TYPE_HEADER
+import iad1tya.echo.music.constants.GridItemSize
+import iad1tya.echo.music.constants.GridItemsSizeKey
+import iad1tya.echo.music.constants.GridThumbnailHeight
+import iad1tya.echo.music.constants.HideExplicitKey
+import iad1tya.echo.music.constants.LibraryViewType
+import iad1tya.echo.music.constants.YtmSyncKey
+import iad1tya.echo.music.ui.component.ChipsRow
+import iad1tya.echo.music.ui.component.EmptyPlaceholder
+import iad1tya.echo.music.ui.component.LibraryAlbumGridItem
+import iad1tya.echo.music.ui.component.LibraryAlbumListItem
+import iad1tya.echo.music.ui.component.LocalMenuState
+import iad1tya.echo.music.ui.component.SortHeader
+import iad1tya.echo.music.utils.rememberEnumPreference
+import iad1tya.echo.music.utils.rememberPreference
+import iad1tya.echo.music.viewmodels.LibraryAlbumsViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-@OptIn(ExperimentalFoundationApi::class)
+@OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun LibraryAlbumsScreen(
     navController: NavController,
@@ -103,8 +110,7 @@ fun LibraryAlbumsScreen(
                 selected = true,
                 colors = FilterChipDefaults.filterChipColors(containerColor = MaterialTheme.colorScheme.surface),
                 onClick = onDeselect,
-                shape = RoundedCornerShape(8.dp),
-                border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline),
+                shape = RoundedCornerShape(16.dp),
                 leadingIcon = {
                     Icon(painter = painterResource(R.drawable.close), contentDescription = "")
                 },
@@ -113,7 +119,9 @@ fun LibraryAlbumsScreen(
                 chips =
                 listOf(
                     AlbumFilter.LIKED to stringResource(R.string.filter_liked),
-                    AlbumFilter.LIBRARY to stringResource(R.string.filter_library)
+                    AlbumFilter.LIBRARY to stringResource(R.string.filter_library),
+                    AlbumFilter.DOWNLOADED to stringResource(R.string.filter_downloaded),
+                    AlbumFilter.DOWNLOADED_FULL to stringResource(R.string.filter_downloaded_full)
                 ),
                 currentValue = filter,
                 onValueUpdate = {
@@ -133,11 +141,13 @@ fun LibraryAlbumsScreen(
     }
 
     val albums by viewModel.allAlbums.collectAsState()
+    val isRefreshing by viewModel.isRefreshing.collectAsState()
 
     val coroutineScope = rememberCoroutineScope()
 
     val lazyListState = rememberLazyListState()
     val lazyGridState = rememberLazyGridState()
+    val pullRefreshState = rememberPullToRefreshState()
     val backStackEntry by navController.currentBackStackEntryAsState()
     val scrollToTop =
         backStackEntry?.savedStateHandle?.getStateFlow("scrollToTop", false)?.collectAsState()
@@ -204,7 +214,13 @@ fun LibraryAlbumsScreen(
     }
 
     Box(
-        modifier = Modifier.fillMaxSize(),
+        modifier =
+            Modifier.fillMaxSize()
+                .pullToRefresh(
+                    state = pullRefreshState,
+                    isRefreshing = isRefreshing,
+                    onRefresh = { if (ytmSync) viewModel.refresh(filter) }
+                ),
     ) {
         when (viewType) {
             LibraryViewType.LIST ->
@@ -228,7 +244,7 @@ fun LibraryAlbumsScreen(
 
                     albums.let { albums ->
                         if (albums.isEmpty()) {
-                            item(key = "empty_placeholder") {
+                            item {
                                 EmptyPlaceholder(
                                     icon = R.drawable.album,
                                     text = stringResource(R.string.library_album_empty),
@@ -320,5 +336,13 @@ fun LibraryAlbumsScreen(
                     }
                 }
         }
+
+        PullToRefreshDefaults.Indicator(
+            isRefreshing = isRefreshing,
+            state = pullRefreshState,
+            modifier = Modifier
+                .align(Alignment.TopCenter)
+                .padding(LocalPlayerAwareWindowInsets.current.asPaddingValues()),
+        )
     }
 }

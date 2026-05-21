@@ -1,23 +1,34 @@
-package prince.sonic.music.playback.queues
+
+
+
+
+
+package iad1tya.echo.music.playback.queues
 
 import androidx.media3.common.MediaItem
-import com.echo.innertube.YouTube
-import com.echo.innertube.models.WatchEndpoint
-import prince.sonic.music.extensions.toMediaItem
-import prince.sonic.music.models.MediaMetadata
+import iad1tya.echo.music.innertube.YouTube
+import iad1tya.echo.music.innertube.models.WatchEndpoint
+import iad1tya.echo.music.extensions.toMediaItem
+import iad1tya.echo.music.models.MediaMetadata
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.withContext
 
 class YouTubeQueue(
     private var endpoint: WatchEndpoint,
     override val preloadItem: MediaMetadata? = null,
+    private val followAutomixPreview: Boolean = false,
+    private val expandToFullQueueWhenAutoLoadMoreDisabled: Boolean = false,
 ) : Queue {
     private var continuation: String? = null
 
     override suspend fun getInitialStatus(): Queue.Status {
         val nextResult =
             withContext(IO) {
-                YouTube.next(endpoint, continuation).getOrThrow()
+                YouTube.next(
+                    endpoint = endpoint,
+                    continuation = continuation,
+                    followAutomixPreview = followAutomixPreview,
+                ).getOrThrow()
             }
         endpoint = nextResult.endpoint
         continuation = nextResult.continuation
@@ -30,10 +41,17 @@ class YouTubeQueue(
 
     override fun hasNextPage(): Boolean = continuation != null
 
+    override fun shouldExpandToFullQueueWhenAutoLoadMoreDisabled(): Boolean =
+        expandToFullQueueWhenAutoLoadMoreDisabled
+
     override suspend fun nextPage(): List<MediaItem> {
         val nextResult =
             withContext(IO) {
-                YouTube.next(endpoint, continuation).getOrThrow()
+                YouTube.next(
+                    endpoint = endpoint,
+                    continuation = continuation,
+                    followAutomixPreview = followAutomixPreview,
+                ).getOrThrow()
             }
         endpoint = nextResult.endpoint
         continuation = nextResult.continuation
@@ -41,6 +59,20 @@ class YouTubeQueue(
     }
 
     companion object {
-        fun radio(song: MediaMetadata) = YouTubeQueue(WatchEndpoint(song.id), song)
+        fun playlist(
+            endpoint: WatchEndpoint,
+            preloadItem: MediaMetadata? = null,
+        ) = YouTubeQueue(
+            endpoint = endpoint,
+            preloadItem = preloadItem,
+            expandToFullQueueWhenAutoLoadMoreDisabled = true,
+        )
+
+        fun radio(song: MediaMetadata) =
+            YouTubeQueue(
+                endpoint = WatchEndpoint(videoId = song.id),
+                preloadItem = song,
+                followAutomixPreview = true,
+            )
     }
 }

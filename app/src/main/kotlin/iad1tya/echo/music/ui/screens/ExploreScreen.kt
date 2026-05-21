@@ -1,4 +1,9 @@
-package prince.sonic.music.ui.screens
+
+
+
+
+
+package iad1tya.echo.music.ui.screens
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
@@ -6,8 +11,6 @@ import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.foundation.gestures.snapping.rememberSnapFlingBehavior
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.layout.safeDrawing
-import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
@@ -34,26 +37,26 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.echo.innertube.models.*
-import prince.sonic.music.LocalPlayerAwareWindowInsets
-import prince.sonic.music.LocalPlayerConnection
-import prince.sonic.music.R
-import prince.sonic.music.constants.ListItemHeight
-import prince.sonic.music.extensions.togglePlayPause
-import prince.sonic.music.models.toMediaMetadata
-import prince.sonic.music.playback.queues.YouTubeQueue
-import prince.sonic.music.ui.component.LocalMenuState
-import prince.sonic.music.ui.component.NavigationTitle
-import prince.sonic.music.ui.component.YouTubeGridItem
-import prince.sonic.music.ui.component.YouTubeListItem
-import prince.sonic.music.ui.component.shimmer.GridItemPlaceHolder
-import prince.sonic.music.ui.component.shimmer.ShimmerHost
-import prince.sonic.music.ui.component.shimmer.TextPlaceholder
-import prince.sonic.music.ui.menu.YouTubeAlbumMenu
-import prince.sonic.music.ui.menu.YouTubeSongMenu
-import prince.sonic.music.ui.utils.SnapLayoutInfoProvider
-import prince.sonic.music.viewmodels.ChartsViewModel
-import prince.sonic.music.viewmodels.ExploreViewModel
+import iad1tya.echo.music.innertube.models.*
+import iad1tya.echo.music.LocalPlayerAwareWindowInsets
+import iad1tya.echo.music.LocalPlayerConnection
+import iad1tya.echo.music.R
+import iad1tya.echo.music.constants.ListItemHeight
+import iad1tya.echo.music.extensions.togglePlayPause
+import iad1tya.echo.music.models.toMediaMetadata
+import iad1tya.echo.music.playback.queues.YouTubeQueue
+import iad1tya.echo.music.ui.component.LocalMenuState
+import iad1tya.echo.music.ui.component.NavigationTitle
+import iad1tya.echo.music.ui.component.YouTubeGridItem
+import iad1tya.echo.music.ui.component.YouTubeListItem
+import iad1tya.echo.music.ui.component.shimmer.GridItemPlaceHolder
+import iad1tya.echo.music.ui.component.shimmer.ShimmerHost
+import iad1tya.echo.music.ui.component.shimmer.TextPlaceholder
+import iad1tya.echo.music.ui.menu.YouTubeAlbumMenu
+import iad1tya.echo.music.ui.menu.YouTubeSongMenu
+import iad1tya.echo.music.ui.utils.SnapLayoutInfoProvider
+import iad1tya.echo.music.viewmodels.ChartsViewModel
+import iad1tya.echo.music.viewmodels.ExploreViewModel
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
@@ -392,18 +395,21 @@ fun ExploreScreen(
                 explorePage?.moodAndGenres?.let { moodAndGenres ->
                     NavigationTitle(
                         title = stringResource(R.string.mood_and_genres),
-                        onClick = {
-                            navController.navigate("mood_and_genres")
-                        },
                     )
                     LazyHorizontalGrid(
                         rows = GridCells.Fixed(4),
                         contentPadding = PaddingValues(6.dp),
                         modifier = Modifier.height((MoodAndGenresButtonHeight + 12.dp) * 4 + 12.dp),
                     ) {
-                        items(moodAndGenres) {
+                        items(
+                            items = moodAndGenres,
+                            key = { item -> "${item.title}:${item.endpoint.browseId}:${item.endpoint.params}" },
+                            contentType = { "moodAndGenres" },
+                        ) {
                             MoodAndGenresButton(
                                 title = it.title,
+                                stripeColor = it.stripeColor,
+                                endpoint = it.endpoint,
                                 onClick = {
                                     navController.navigate("youtube_browse/${it.endpoint.browseId}?params=${it.endpoint.params}")
                                 },

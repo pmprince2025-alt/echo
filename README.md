@@ -4,10 +4,7 @@
   <h1>Echo Music</h1>
 
   <p><strong>A robust, open-source music streaming client offering an ad-free experience, offline capabilities, and advanced music discovery.</strong></p>
-
-  <a href="https://trendshift.io/repositories/15844" target="_blank">
-    <img src="https://trendshift.io/api/badge/repositories/15844" alt="Trendshift" width="250" height="55"/>
-  </a>
+<a href="https://trendshift.io/repositories/20485" target="_blank"><img src="https://trendshift.io/api/badge/repositories/20485" alt="EchoMusicApp%2FEcho-Music | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
 
 <br>
 
@@ -163,6 +160,7 @@ Echo Music stands on the shoulders of several excellent open-source projects. Si
 | Project | Description |
 |---------|-------------|
 | [Metrolist](https://github.com/MetrolistGroup/Metrolist) | Foundational inspiration and architecture reference |
+| [ArchiveTune](https://github.com/koiverse/ArchiveTune) | Material You UI inspiration |
 | [Better Lyrics](https://better-lyrics.boidu.dev/) | Lyrics enhancement and synchronization |
 | [SimpMusic](https://github.com/maxrave-dev/SimpMusic) | Lyrics implementation reference |
 | [Music Recognizer](https://github.com/aleksey-saenko/MusicRecognizer) | Audio recognition (Echo Find) |
