@@ -412,9 +412,6 @@
     <string name="proxy_host">Địa chỉ proxy (IP)</string>
     <string name="proxy_port">Cổng proxy (Port)</string>
     <string name="proxy_auth">Xác thực proxy (tùy chọn)</string>
-    <string name="proxy_username">Tên người dùng</string>
-    <string name="proxy_password">Mật khẩu</string>
-    <string name="test_proxy_connection">Kiểm tra kết nối proxy</string>
     <string name="testing_proxy_connection">Đang kiểm tra kết nối proxy…</string>
     <string name="proxy_connection_success">Kết nối proxy thành công!</string>
     <string name="proxy_connection_failed">Kết nối proxy thất bại: %s</string>
@@ -435,8 +432,6 @@
     <string name="auto_load_more_desc">Tự động thêm nhiều bài hát khi đến cuối hàng đợi. Tắt khi chế độ lặp đang hoạt động</string>
     <string name="skip_silence">Bỏ qua im lặng</string>
     <string name="audio_normalization">Chuẩn hóa âm thanh</string>
-    <string name="audio_offload">Giải phóng âm thanh</string>
-    <string name="audio_offload_desc">Cho phép các thiết bị được hỗ trợ phát âm thanh bằng giải mã phần cứng công suất thấp. Một số tính năng xử lý âm thanh sẽ bị vô hiệu hóa.</string>
     <string name="auto_skip_next_on_error">Tự động chuyển sang bài tiếp theo khi có lỗi</string>
     <string name="auto_skip_next_on_error_desc">Đảm bảo trải nghiệm phát nhạc liên tục của bạn</string>
     <string name="stop_music_on_task_clear">Dừng nhạc khi xóa tác vụ</string>
@@ -570,8 +565,6 @@ Echo Music sẽ chỉ trích xuất token của bạn, và mọi thứ khác đ�
     <!-- Translate UI strings -->
     <string name="translate">Dịch</string>
     <string name="language_label">Ngôn ngữ</string>
-    <string name="lyrics">Lời bài hát</string>
-    <string name="translation_success">Đã lưu bản dịch</string>
     <string name="translation_failed">Bản dịch thất bại</string>
     <!-- Discord settings additions -->
     <string name="discord_button_options">Tùy chọn nút</string>
@@ -734,8 +727,6 @@ Echo Music sẽ chỉ trích xuất token của bạn, và mọi thứ khác đ�
     <string name="joined">Đã tham gia</string>
     <string name="loading">Đang tải</string>
     <string name="connecting">Đang kết nối…</string>
-    <string name="copy_link">Sao chép liên kết</string>
-    <string name="together_host_section">Tổ chức</string>
     <string name="together_join_section">Tham gia</string>
     <string name="together_status">Trạng thái</string>
     <string name="together_idle">Không trong phiên</string>

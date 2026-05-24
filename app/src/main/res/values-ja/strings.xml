@@ -615,8 +615,6 @@ Echo Music will only extract your token, and everything else is stored locally.<
     <!-- Translate UI strings -->
     <string name="translate">翻訳する</string>
     <string name="language_label">言語</string>
-    <string name="lyrics">歌詞</string>
-    <string name="translation_success">翻訳が保存されました</string>
     <string name="translation_failed">翻訳に失敗しました</string>
     <!-- Discord settings additions -->
     <string name="discord_button_options">ボタンのオプション</string>
@@ -791,9 +789,6 @@ Echo Music will only extract your token, and everything else is stored locally.<
     <string name="joined">参加しました</string>
     <string name="loading">読み込み中</string>
     <string name="connecting">Connecting…</string>
-    <string name="copy_link">リンクをコピー</string>
-
-    <string name="together_host_section">ホスト</string>
     <string name="together_join_section">参加する</string>
     <string name="together_status">ステータス</string>
     <string name="together_idle">セッション中ではありません</string>

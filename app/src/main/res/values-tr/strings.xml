@@ -482,16 +482,6 @@
     <string name="enable_discord_rpc">Zengin Durumu Etkinleştir</string>
     <!-- Last.fm -->
     <string name="scrobbling">Skrobling</string>
-    <string name="lastfm_integration">Last.fm Entegrasyonu</string>
-    <string name="enable_scrobbling">Scrobbling\'i Etkinleştir</string>
-    <string name="lastfm_now_playing">Güncelle Şimdi Yürütülüyor</string>
-    <string name="scrobbling_configuration">Scrobbling Yapılandırması</string>
-    <string name="scrobble_min_track_duration">Minimum Parça Süresi</string>
-    <string name="scrobble_delay_percent">Scrobble Gecikme Yüzdesi</string>
-    <string name="scrobble_delay_minutes">Scrobble Gecikmesi (Saniye)</string>
-    <string name="username">Kullanıcı adı</string>
-    <string name="password">Şifre</string>
-    <string name="logging_in">Giriş yapılıyor…</string>
     <!-- ListenBrainz -->
     <string name="listenbrainz_scrobbling">ListenBrainz skrobling yapıyor</string>
     <string name="listenbrainz_scrobbling_description">Şu anda çalınan ve biten dinlemelerin ListenBrainz\'e gönderilmesini etkinleştirin</string>
@@ -534,8 +524,6 @@
     <!-- Translate UI strings -->
     <string name="translate">Çevir</string>
     <string name="language_label">Dil</string>
-    <string name="lyrics">Şarkı sözleri</string>
-    <string name="translation_success">Çeviri kaydedildi</string>
     <string name="translation_failed">Çeviri başarısız oldu</string>
     <!-- Discord settings additions -->
     <string name="discord_button_options">Düğme Seçenekleri</string>

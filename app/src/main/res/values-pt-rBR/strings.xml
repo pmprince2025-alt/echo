@@ -424,16 +424,6 @@
     <string name="preview">Pré-visualização</string>
     <string name="enable_discord_rpc">Ativar Rich Presence</string>
     <string name="scrobbling">Scrobbling</string>
-    <string name="lastfm_integration">Integração com o Last.fm</string>
-    <string name="enable_scrobbling">Ativar Scrobbling</string>
-    <string name="lastfm_now_playing">Atualizar Tocando Agora</string>
-    <string name="scrobbling_configuration">Configuração do Scrobbling</string>
-    <string name="scrobble_min_track_duration">Duração mínima da faixa</string>
-    <string name="scrobble_delay_percent">Porcentagem de atraso do Scrobble</string>
-    <string name="scrobble_delay_minutes">Atraso do Scrobble (em segundos)</string>
-    <string name="username">Nome de usuário</string>
-    <string name="password">Senha</string>
-    <string name="logging_in">Logando…</string>
     <string name="listenbrainz_scrobbling">Scrobbling do ListenBrainz</string>
     <string name="listenbrainz_scrobbling_description">Ative o envio de reproduções em tempo real e reproduções finalizadas para o ListenBrainz</string>
     <string name="set_listenbrainz_token">Definir token do ListenBrainz</string>
@@ -471,8 +461,6 @@
     <string name="update_text">Atualizar</string>
     <string name="translate">Traduzir</string>
     <string name="language_label">Idioma</string>
-    <string name="lyrics">Letras</string>
-    <string name="translation_success">Tradução salva</string>
     <string name="translation_failed">Falha na tradução</string>
     <string name="discord_button_options">Opções do botão</string>
     <string name="discord_image_options">Opções da imagem</string>

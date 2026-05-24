@@ -396,8 +396,6 @@
     <string name="auto_load_more_desc">Añade más canciones automáticamente cuando se llega al final de la cola. Desactivado cuando el modo repetición esta activado</string>
     <string name="skip_silence">Omitir silencio</string>
     <string name="audio_normalization">Normalización de audio</string>
-    <string name="audio_offload">Offload de audio</string>
-    <string name="audio_offload_desc">Permite que los dispositivos compatibles reproduzcan audio utilizando decodificación de hardware de bajo consumo. Algunas funciones de procesamiento de audio están desactivadas.</string>
     <string name="auto_skip_next_on_error">Omitir automáticamente la siguiente canción cuando ocurran errores</string>
     <string name="auto_skip_next_on_error_desc">Asegúrate de que la reproducción no se interrumpa</string>
     <string name="stop_music_on_task_clear">Detener la música al finalizar la tarea</string>
@@ -479,16 +477,6 @@
     <string name="preview">Vista previa</string>
     <string name="enable_discord_rpc">Activa Rich Presence</string>
     <string name="scrobbling">Scrobbling (Last.fm)</string>
-    <string name="lastfm_integration">Integración con Last.fm</string>
-    <string name="enable_scrobbling">Activa el Scrobbling</string>
-    <string name="lastfm_now_playing">Actualizar Reproducción en curso</string>
-    <string name="scrobbling_configuration">Configuración del Scrobbling</string>
-    <string name="scrobble_min_track_duration">Duración mínima de la pista</string>
-    <string name="scrobble_delay_percent">Porcentaje de retraso del scrobbling</string>
-    <string name="scrobble_delay_minutes">Retraso de Scrobble (Segundos)</string>
-    <string name="username">Nombre de usuario</string>
-    <string name="password">Contraseña</string>
-    <string name="logging_in">Iniciando sesión…</string>
     <string name="listenbrainz_scrobbling">Scrobbling de ListenBrainz</string>
     <string name="listenbrainz_scrobbling_description">Activar el envío de listas de reproducción actuales y terminadas a ListenBrainz</string>
     <string name="set_listenbrainz_token">Establecer token de ListenBrainz</string>
@@ -526,8 +514,6 @@
     <string name="update_text">Actualizar</string>
     <string name="translate">Traducir</string>
     <string name="language_label">Idioma</string>
-    <string name="lyrics">Letras</string>
-    <string name="translation_success">Traducción guardada</string>
     <string name="translation_failed">Fallo al traducir</string>
     <string name="discord_button_options">Opciones del botón</string>
     <string name="discord_image_options">Opciones de imagen</string>
@@ -681,8 +667,6 @@
     <string name="joined">Te uniste</string>
     <string name="loading">Cargando</string>
     <string name="connecting">Conectando…</string>
-    <string name="copy_link">Copiar enlace</string>
-    <string name="together_host_section">Anfitrión</string>
     <string name="together_join_section">Únete</string>
     <string name="together_status">Estatus</string>
     <string name="together_idle">No en una sesión</string>
@@ -700,8 +684,6 @@
     <string name="stream_bypass_proxy_desc">Utiliza tu dirección IP directa para la reproducción de transmisiones y evita las incompatibilidades de IP</string>
     <string name="speed_dial">Marcación rápida</string>
     <string name="speed_dial_random">Reproducir una canción aleatoria de marcación rápida</string>
-    <string name="integrations">Integraciones</string>
-    <string name="internal_subcategory_settings">Configuración interna y de subcategorías</string>
     <string name="search_try_different">Prueba con otro término de búsqueda</string>
     <string name="top_results">Resultados destacados</string>
     <string name="music_recognition">Reconocimiento musical</string>
@@ -786,8 +768,6 @@
     <string name="updates_subtitle_nightly">Compilaciones Nightly y últimas modificaciones de desarrollo</string>
     <string name="updates_status_checking">Comprobar si hay una nueva versión</string>
     <string name="updates_status_current">Tienes la última versión disponible</string>
-    <string name="update_channel_desc">Elige entre versiones probadas o en desarrollo.</string>
-    <string name="updates_latest_commit">Último commit: %s</string>
     <string name="updates_loading_commits">Cargando las últimas modificaciones</string>
     <string name="updates_recent_commits_count">%1$d commits recientes</string>
     <string name="updates_no_commits">Sin cambios recientes</string>
@@ -810,9 +790,6 @@
     <string name="proxy_host">Servidor proxy (IP)</string>
     <string name="proxy_port">Puerto del proxy</string>
     <string name="proxy_auth">Autorización de proxy (opcional)</string>
-    <string name="proxy_username">Nombre de usuario</string>
-    <string name="proxy_password">Contraseña</string>
-    <string name="test_proxy_connection">Comprobar la conexión del proxy</string>
     <string name="testing_proxy_connection">Comprobando la conexión del proxy…</string>
     <string name="proxy_connection_success">¡Conexión a través del proxy realizada correctamente!</string>
     <string name="proxy_connection_failed">Error en la conexión al servidor proxy: %s</string>

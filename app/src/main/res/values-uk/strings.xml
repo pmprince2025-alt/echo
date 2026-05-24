@@ -24,8 +24,6 @@
     <string name="new_release_albums">Нові альбоми</string>
     <string name="select_playlist_to_sync">Виберіть плейліст для синхронізації</string>
     <string name="integration">Інтеграція</string>
-    <string name="integrations">Інтеграції</string>
-    <string name="internal_subcategory_settings">Внутрішні налаштування та підкатегорії</string>
     <string name="search_try_different">Спробуйте ввести інший пошуковий запит</string>
     <string name="today">Сьогодні</string>
     <string name="yesterday">Вчора</string>
@@ -188,8 +186,6 @@
     <string name="pitch_mode_semitones_short">st</string>
     <string name="pitch_mode_multiplier_short">x</string>
     <string name="sort_by_create_date">Дата додавання</string>
-    <string name="scrobble_min_track_duration">Мінімальна тривалість треку</string>
-    <string name="sort_by_name">Назва</string>
     <string name="sort_by_artist">Виконавець</string>
     <string name="sort_by_year">Рік</string>
     <string name="sort_by_song_count">Кількість пісень</string>
@@ -431,8 +427,6 @@
     <string name="auto_load_more_desc">Автоматично додавати нові пісні після досягнення кінця черги. Ця функція вимкнена, якщо увімкнено режим повторення</string>
     <string name="skip_silence">Пропускати мовчання</string>
     <string name="audio_normalization">Нормалізація аудіо</string>
-    <string name="audio_offload">Розвантаження аудіо</string>
-    <string name="audio_offload_desc">Дозволяти сумісним пристроям відтворювати аудіо за допомогою апаратного декодування з низьким енергоспоживанням. Деякі функції обробки аудіо будуть вимкнені.</string>
     <string name="pause_on_device_mute">Призупиняти відтворення, якщо гучність пристрою дорівнює 0</string>
     <string name="pause_on_device_mute_desc">Автоматично призупиняти відтворення музики при вимкненні звуку та відновлювати його при увімкненні звуку</string>
     <string name="auto_skip_next_on_error">Автоматично переходити до наступної пісні у разі виникнення помилки</string>
@@ -525,15 +519,6 @@
     <string name="preview">Попередній перегляд</string>
     <string name="enable_discord_rpc">Увімкнути функцію Rich Presence</string>
     <string name="scrobbling">Скроблінг</string>
-    <string name="lastfm_integration">Інтеграція з Last.fm</string>
-    <string name="enable_scrobbling">Увімкнути скроблінг</string>
-    <string name="lastfm_now_playing">Оновити Now Playing</string>
-    <string name="scrobbling_configuration">Налаштування скроблінгу</string>
-    <string name="scrobble_delay_percent">Відсоток затримки скроблінгу</string>
-    <string name="scrobble_delay_minutes">Затримка скроблінгу (секунди)</string>
-    <string name="username">Ім\'я користувача</string>
-    <string name="password">Пароль</string>
-    <string name="logging_in">Вхід…</string>
     <string name="listenbrainz_scrobbling">Скроблінг у ListenBrainz</string>
     <string name="listenbrainz_scrobbling_description">Увімкнути надсилання інформації про пісні, що зараз звучать, та про прослухані композиції до ListenBrainz</string>
     <string name="set_listenbrainz_token">Встановити токен ListenBrainz</string>
@@ -571,8 +556,6 @@
     <string name="update_text">Оновити</string>
     <string name="translate">Перекласти</string>
     <string name="language_label">Мова</string>
-    <string name="lyrics">Тексти пісень</string>
-    <string name="translation_success">Переклад збережено</string>
     <string name="translation_failed">Помилка перекладу</string>
     <string name="discord_button_options">Параметри кнопок</string>
     <string name="discord_image_options">Параметри зображення</string>
@@ -729,8 +712,6 @@
     <string name="joined">Приєднався</string>
     <string name="loading">Завантаження</string>
     <string name="connecting">З\'єднання…</string>
-    <string name="copy_link">Скопіювати посилання</string>
-    <string name="together_host_section">Хост</string>
     <string name="together_join_section">Доєднатися</string>
     <string name="together_status">Статус</string>
     <string name="together_idle">Не в сеансі</string>

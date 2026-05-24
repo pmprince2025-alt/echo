@@ -490,16 +490,6 @@
     <string name="enable_discord_rpc">Abilita Rich Presence</string>
     <!-- Last.fm -->
     <string name="scrobbling">Scrobbling</string>
-    <string name="lastfm_integration">Integrazione con Last.fm</string>
-    <string name="enable_scrobbling">Abilita lo scrobbling</string>
-    <string name="lastfm_now_playing">Aggiorna ora in riproduzione</string>
-    <string name="scrobbling_configuration">Configurazione di scrobbling</string>
-    <string name="scrobble_min_track_duration">Durata minima della traccia</string>
-    <string name="scrobble_delay_percent">Percentuale ritardo scrobble</string>
-    <string name="scrobble_delay_minutes">Ritardo Scrobble (secondi)</string>
-    <string name="username">Nome utente</string>
-    <string name="password">Parola d\'ordine</string>
-    <string name="logging_in">Accesso…</string>
     <!-- ListenBrainz -->
     <string name="listenbrainz_scrobbling">AscoltaBrainz che scrobbling</string>
     <string name="listenbrainz_scrobbling_description">Abilita l\'invio degli ascolti in riproduzione e finiti a ListenBrainz</string>
@@ -542,8 +532,6 @@
     <!-- Translate UI strings -->
     <string name="translate">Traduci</string>
     <string name="language_label">Lingua</string>
-    <string name="lyrics">Testi</string>
-    <string name="translation_success">Traduzione salvata</string>
     <string name="translation_failed">Traduzione fallita</string>
     <!-- Discord settings additions -->
     <string name="discord_button_options">Opzioni dei pulsanti</string>
@@ -626,8 +614,6 @@
     <string name="next">Avanti</string>
     <string name="next_song">Canzone successiva</string>
     <string name="allow">Consenti</string>
-    <string name="integrations">Integrazioni</string>
-    <string name="internal_subcategory_settings">Impostazioni interne e di sottocategoria</string>
     <string name="search_try_different">Prova con un termine di ricerca diverso</string>
     <string name="top_results">Risultati principali</string>
     <string name="change_playlist_cover">Cambia la copertina della playlist</string>

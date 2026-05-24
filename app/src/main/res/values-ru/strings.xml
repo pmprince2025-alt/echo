@@ -405,8 +405,6 @@
     <string name="auto_load_more_desc">Автоматически добавлять похожие песни при окончании очереди. Не работает в режиме повтора</string>
     <string name="skip_silence">Пропускать тишину</string>
     <string name="audio_normalization">Нормализация аудио</string>
-    <string name="audio_offload">Аппаратное ускорение звука</string>
-    <string name="audio_offload_desc">Использовать аппаратное декодирование на поддерживаемых устройствах для экономии энергии. Некоторые звуковые эффекты будут отключены.</string>
     <string name="auto_skip_next_on_error">Автоматически включать следующую песню при ошибке</string>
     <string name="auto_skip_next_on_error_desc">Бесперебойное воспроизведение</string>
     <string name="stop_music_on_task_clear">Останавливать музыку при закрытии</string>
@@ -484,16 +482,6 @@
     <string name="preview">Предпросмотр</string>
     <string name="enable_discord_rpc">Включить Rich Presence</string>
     <string name="scrobbling">Скробблинг</string>
-    <string name="lastfm_integration">Интеграция с Last.fm</string>
-    <string name="enable_scrobbling">Включить скробблинг</string>
-    <string name="lastfm_now_playing">Обновлять \"Сейчас играет\"</string>
-    <string name="scrobbling_configuration">Настройка скробблинга</string>
-    <string name="scrobble_min_track_duration">Минимальная длина трека</string>
-    <string name="scrobble_delay_percent">Процент задержки скробблинга</string>
-    <string name="scrobble_delay_minutes">Задержка скробблинга (в секундах)</string>
-    <string name="username">Имя пользователя</string>
-    <string name="password">Пароль</string>
-    <string name="logging_in">Выполнение входа…</string>
     <string name="listenbrainz_scrobbling">Скробблинг ListenBrainz</string>
     <string name="listenbrainz_scrobbling_description">Отправлять данные о прослушиваниях в ListenBrainz</string>
     <string name="set_listenbrainz_token">Указать токен ListenBrainz</string>
@@ -531,8 +519,6 @@
     <string name="update_text">Обновить</string>
     <string name="translate">Перевести</string>
     <string name="language_label">Язык</string>
-    <string name="lyrics">Текст</string>
-    <string name="translation_success">Перевод сохранён</string>
     <string name="translation_failed">Ошибка при переводе</string>
     <string name="discord_button_options">Настройка кнопок</string>
     <string name="discord_image_options">Опции изображения</string>
@@ -686,8 +672,6 @@
     <string name="joined">Присоединился</string>
     <string name="loading">Загрузка</string>
     <string name="connecting">Подключение…</string>
-    <string name="copy_link">Скопировать ссылку</string>
-    <string name="together_host_section">Хост</string>
     <string name="together_join_section">Присоединиться</string>
     <string name="together_status">Статус</string>
     <string name="together_idle">Не в сессии</string>
@@ -705,8 +689,6 @@
     <string name="together_welcome_join_body">Откройте ссылку с которой вами поделились, или введите код и нажмите Присоединиться. Ваши очередь и воспроизведение будут следовать хосту.</string>
     <string name="together_welcome_permissions_title">Разрешения и безопасность</string>
     <string name="together_welcome_permissions_body">Хосты могут решать, могут ли гости добавлять песни, управлять воспроизведением или требовать одобрения для присоединения.</string>
-    <string name="integrations">Интеграции</string>
-    <string name="internal_subcategory_settings">Внутренние настройки и подкатегории</string>
     <string name="search_try_different">Попробуйте другой поисковый запрос</string>
     <string name="top_results">Лучшие результаты</string>
     <string name="slider_style_standard">Стандартный</string>
@@ -780,9 +762,6 @@
     <string name="proxy_host">Хост прокси (IP)</string>
     <string name="proxy_port">Порт прокси</string>
     <string name="proxy_auth">Авторизация прокси (необязательно)</string>
-    <string name="proxy_username">Имя пользователя</string>
-    <string name="proxy_password">Пароль</string>
-    <string name="test_proxy_connection">Проверить подключение прокси</string>
     <string name="testing_proxy_connection">Проверка подключения прокси…</string>
     <string name="proxy_connection_success">Подключение прокси прошло успешно!</string>
     <string name="proxy_connection_failed">Подключение прокси провалилось: %s</string>
@@ -810,8 +789,6 @@
     <string name="updates_subtitle_nightly">Ночные сборки и последние коммиты разработки</string>
     <string name="updates_status_checking">Проверка последнего релиза</string>
     <string name="updates_status_current">Вы на последней версии релиза</string>
-    <string name="update_channel_desc">Выбирайте между тестированными релизами и снапшотами разработки.</string>
-    <string name="updates_nightly_title">Доставка ночных сборок</string>
     <string name="updates_nightly_description">Ночные сборки отслеживают последние изменения в процессе разработки и могут включать в себя незавершенные изменения.</string>
     <string name="updates_latest_commit">Последний коммит: %s</string>
     <string name="updates_loading_commits">Загрузка последних коммитов</string>

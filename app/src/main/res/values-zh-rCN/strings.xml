@@ -231,8 +231,6 @@
     <string name="update_text">更新</string>
     <string name="translate">翻译</string>
     <string name="language_label">语言</string>
-    <string name="lyrics">歌词</string>
-    <string name="translation_success">翻译已保存</string>
     <string name="translation_failed">翻译失败</string>
     <string name="discord_button_options">按键选项</string>
     <string name="discord_image_options">图片选项</string>
@@ -420,14 +418,6 @@
     <string name="options">选项</string>
     <string name="preview">预览</string>
     <string name="scrobbling">Last.fm</string>
-    <string name="lastfm_integration">Last.fm 联动</string>
-    <string name="scrobbling_configuration">抄写配置</string>
-    <string name="scrobble_min_track_duration">最低轨道时长</string>
-    <string name="scrobble_delay_percent">拼字延迟百分比</string>
-    <string name="scrobble_delay_minutes">Scrobble 延迟（秒数）</string>
-    <string name="username">用户名</string>
-    <string name="password">密码</string>
-    <string name="logging_in">正在登录...…</string>
     <string name="listenbrainz_scrobbling_description">启用提交正在播放和已完成的聆听记录到 ListenBrainz</string>
     <string name="update_interval">在线状态更新间隔</string>
     <string name="translator_options">翻译器选项</string>
@@ -505,9 +495,6 @@
     <string name="song_cache">歌曲缓存</string>
     <string name="dismiss">忽略</string>
     <string name="enable_discord_rpc">启用 Rich Presence</string>
-    <string name="enable_scrobbling">启用 Scrobbling</string>
-    <string name="lastfm_now_playing">更新「正在播放」状态</string>
-    <string name="platform_status">平台</string>
     <string name="description_show_small_image">启用后，将在 Rich Presence 预览中显示圆形小图标，并同步至 Discord 活动状态</string>
     <string name="eq_save">保存</string>
     <string name="eq_save_profile">保存配置</string>
@@ -592,8 +579,6 @@
     <string name="size_used">%s已使用</string>
     <string name="change_playlist_cover">更改播放列表封面</string>
     <string name="remove_playlist_cover">移除封面</string>
-    <string name="integrations">集成</string>
-    <string name="internal_subcategory_settings">内部与子类别设置</string>
     <string name="search_try_different">请尝试不同的搜索词</string>
     <string name="top_results">最佳匹配</string>
     <string name="together_participants">成员</string>
@@ -618,8 +603,6 @@
     <string name="slider_style_simple">简约</string>
     <string name="stream_bypass_proxy">流媒体绕过代理</string>
     <string name="stream_bypass_proxy_desc">使用本机真实 IP 播放流媒体，以避免 IP 不匹配问题</string>
-    <string name="audio_offload">硬件辅助解码</string>
-    <string name="audio_offload_desc">允许支持的设备使用低功耗硬件解码播放音频，启用后某些音频处理功能将被禁用</string>
     <string name="pause_on_device_mute">静音时暂停播放</string>
     <string name="pause_on_device_mute_desc">跟随静音状态自动暂停或恢复</string>
     <string name="auto_start_on_bluetooth">连接蓝牙时自动播放</string>
@@ -676,8 +659,6 @@
     <string name="joined">已加入</string>
     <string name="loading">加载中</string>
     <string name="connecting">连接中…</string>
-    <string name="copy_link">复制链接</string>
-    <string name="together_host_section">房主</string>
     <string name="together_join_section">加入</string>
     <string name="together_status">状态</string>
     <string name="together_idle">未加入会话</string>

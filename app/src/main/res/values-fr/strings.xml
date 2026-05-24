@@ -453,18 +453,6 @@
     <string name="enable_discord_rpc">Activer la présence enrichie</string>
     <!-- Last.fm -->
     <string name="scrobbling">Scrobbling</string>
-    <string name="lastfm_integration">Intégration Last.fm</string>
-    <string name="enable_scrobbling">Activer le scrobbling</string>
-    <string name="lastfm_now_playing">Mise à jour de la lecture en cours</string>
-    <string name="scrobbling_configuration">Configuration de scrobbling</string>
-    <string name="scrobble_min_track_duration">Durée minimale du morceau</string>
-    <string name="scrobble_delay_percent">Pourcentage de délai de scrobble</string>
-    <string name="scrobble_delay_minutes">Délai de scrobble (secondes)</string>
-    <string name="username">Nom d\'utilisateur</string>
-    <string name="password">Mot de passe</string>
-    <string name="logging_in">Connexion…</string>
-    <!-- ListenBrainz -->
-    <string name="listenbrainz_scrobbling">Scrobbling ListenBrainz</string>
     <string name="listenbrainz_scrobbling_description">Activez l\'envoi des titres en cours d\'écoute et des titres terminés à ListenBrainz</string>
     <string name="set_listenbrainz_token">Définir le jeton ListenBrainz</string>
     <string name="edit_listenbrainz_token">Modifier le jeton ListenBrainz</string>
@@ -505,8 +493,6 @@
     <!-- Translate UI strings -->
     <string name="translate">Traduire</string>
     <string name="language_label">Langue</string>
-    <string name="lyrics">Paroles</string>
-    <string name="translation_success">Traduction enregistrée</string>
     <string name="translation_failed">Échec de la traduction</string>
     <!-- Discord settings additions -->
     <string name="discord_button_options">Options des boutons</string>
@@ -599,8 +585,6 @@
     <string name="allow">Autoriser</string>
     <string name="use_system_font">Utiliser la police système</string>
     <string name="use_system_font_desc">Utilisez la police de l\'appareil au lieu de la police de l\'application</string>
-    <string name="enable_simpmusic_lyrics">Activer les paroles de SimpMusic</string>
-    <string name="eq_waiting_for_audio_session">En attente de la session audio…</string>
     <string name="eq_open_system_equalizer">Ouvrir l\'égaliseur système</string>
     <string name="eq_presets">Préréglages</string>
     <string name="eq_system">Système</string>
@@ -673,8 +657,6 @@
     <string name="together_song_change_failed">Le changement de titre n\'a pas été pris en compte. Veuillez réessayer.</string>
     <string name="random_theme_on_startup">Thème aléatoire au démarrage</string>
     <string name="random_theme_on_startup_desc">Appliquer une palette de couleurs aléatoire à chaque démarrage de l\'application</string>
-    <string name="audio_offload">Déchargement audio</string>
-    <string name="audio_offload_desc">Permettre aux appareils pris en charge de lire des fichiers audio à l\'aide d\'un décodage matériel à faible consommation d\'énergie. Certaines fonctionnalités de traitement audio sont désactivées.</string>
     <string name="changelog">Journal des modifications</string>
     <string name="view_changelog">Afficher le journal des modifications</string>
     <string name="error_loading_changelog">Erreur lors du chargement du journal des modifications</string>
@@ -725,8 +707,6 @@
     <string name="joined">A rejoint</string>
     <string name="loading">Chargement</string>
     <string name="connecting">Connexion en cours…</string>
-    <string name="copy_link">Copier le lien</string>
-    <string name="together_host_section">Hôte</string>
     <string name="together_join_section">Rejoindre</string>
     <string name="together_status">Statut</string>
     <string name="together_idle">Pas en session</string>
@@ -746,8 +726,6 @@
     <string name="together_welcome_permissions_body">Les hôtes peuvent décider si les invités peuvent ajouter des titres, contrôler la lecture ou si une approbation est requise pour rejoindre la session.</string>
     <string name="stream_bypass_proxy">Contourner le proxy pour les flux</string>
     <string name="stream_bypass_proxy_desc">Utilisez votre adresse IP directe pour la lecture en continu afin d\'éviter les problèmes de correspondance d\'adresses IP</string>
-    <string name="integrations">Intégrations</string>
-    <string name="internal_subcategory_settings">Paramètres internes et des sous-catégories</string>
     <string name="search_try_different">Essayez un autre terme de recherche</string>
     <string name="top_results">Meilleurs Résultats</string>
     <string name="slider_style_standard">Standard</string>
@@ -759,9 +737,6 @@
     <string name="pause_on_device_mute_desc">Mettre automatiquement la musique en pause lorsque le son est coupé et la reprendre lorsque le son est rétabli</string>
     <string name="auto_start_on_bluetooth">Démarrage automatique lors de la connexion Bluetooth</string>
     <string name="auto_start_on_bluetooth_desc">Reprendre automatiquement la lecture lorsqu\'un périphérique audio Bluetooth se connecte</string>
-    <string name="preload_queue_lyrics">Précharger les paroles de la file d\'attente</string>
-    <string name="queue_lyrics_preload_count">Nombre de titres à précharger</string>
-    <string name="po_token_generation">Génération de jetons PO</string>
     <string name="po_token_generation_subtitle">Générer et gérer les jetons PO des clients Web</string>
     <string name="web_client_po_token">Jeton PO du client Web</string>
     <string name="web_client_po_token_desc">Activer la génération de jetons PO pour les clients du lecteur Web</string>
@@ -834,8 +809,6 @@
     <string name="updates_subtitle_nightly">Versions quotidiennes et derniers commits de développement</string>
     <string name="updates_status_checking">Vérification de la dernière version</string>
     <string name="updates_status_current">Vous utilisez la dernière version disponible</string>
-    <string name="update_channel_desc">Choisissez entre les versions testées et les versions de développement.</string>
-    <string name="updates_nightly_title">Livraison nocturne</string>
     <string name="updates_nightly_description">Les versions quotidiennes intègrent les dernières modifications apportées au code et peuvent contenir des changements non finalisés.</string>
     <string name="updates_latest_commit">Dernière modification : %s</string>
     <string name="updates_loading_commits">Chargement des modifications récentes</string>
@@ -858,9 +831,6 @@
     <string name="proxy_host">Serveur proxy (IP)</string>
     <string name="proxy_port">Port du proxy</string>
     <string name="proxy_auth">Autorisation par proxy (facultatif)</string>
-    <string name="proxy_username">Nom d\'utilisateur</string>
-    <string name="proxy_password">Mot de passe</string>
-    <string name="test_proxy_connection">Test de connexion au serveur proxy</string>
     <string name="testing_proxy_connection">Vérification de la connexion au proxy…</string>
     <string name="proxy_connection_success">Connexion via le proxy établie !</string>
     <string name="proxy_connection_failed">Échec de la connexion au serveur proxy : %s</string>
