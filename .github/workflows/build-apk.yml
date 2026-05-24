@@ -39,8 +39,7 @@ jobs:
         if [ -n "${{ secrets.GOOGLE_SERVICES_JSON }}" ]; then
           echo '${{ secrets.GOOGLE_SERVICES_JSON }}' > app/google-services.json
         else
-          echo "No google-services.json secret set. Using placeholder (Firebase features disabled)."
-          cp app/google-services.json.example app/google-services.json 2>/dev/null || true
+          echo "No google-services.json secret set. Firebase features will be disabled."
         fi
 
     - name: Grant execute permission for gradlew
