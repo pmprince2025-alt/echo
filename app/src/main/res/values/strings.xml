@@ -866,4 +866,6 @@ Echo Music will only extract your token, and everything else is stored locally.<
     <string name="move_up">Move Up</string>
     <string name="move_down">Move Down</string>
 
+    <string name="find_song">Find</string>
+    <string name="widget_description">Music player widget</string>
 </resources>
