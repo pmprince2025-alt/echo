@@ -14,10 +14,10 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import prince.sonic.music.constants.AudioArAutoCalibrateKey
-import prince.sonic.music.constants.AudioArEnabledKey
-import prince.sonic.music.constants.AudioArSensitivityKey
-import prince.sonic.music.constants.AudioArCenterPointKey
+import iad1tya.echo.music.constants.AudioArAutoCalibrateKey
+import iad1tya.echo.music.constants.AudioArEnabledKey
+import iad1tya.echo.music.constants.AudioArSensitivityKey
+import iad1tya.echo.music.constants.AudioArCenterPointKey
 import kotlin.math.abs
 import kotlin.math.atan2
 import kotlin.math.sqrt

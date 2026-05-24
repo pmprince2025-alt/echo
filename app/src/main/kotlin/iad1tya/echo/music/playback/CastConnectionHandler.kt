@@ -19,9 +19,9 @@ import com.google.android.gms.cast.framework.SessionManager
 import com.google.android.gms.cast.framework.SessionManagerListener
 import com.google.android.gms.cast.framework.media.RemoteMediaClient
 import com.google.android.gms.common.images.WebImage
-import prince.sonic.music.extensions.metadata
+import iad1tya.echo.music.extensions.metadata
 import prince.sonic.music.models.MediaMetadata as AppMediaMetadata
-import prince.sonic.music.extensions.resize
+import iad1tya.echo.music.extensions.resize
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job

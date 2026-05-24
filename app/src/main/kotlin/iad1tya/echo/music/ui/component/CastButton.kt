@@ -35,7 +35,7 @@ import com.google.android.gms.cast.CastMediaControlIntent
 import com.google.android.gms.cast.framework.CastContext
 import prince.sonic.music.LocalPlayerConnection
 import prince.sonic.music.R
-import prince.sonic.music.constants.EnableGoogleCastKey
+import iad1tya.echo.music.constants.EnableGoogleCastKey
 import prince.sonic.music.utils.rememberPreference
 import timber.log.Timber
 

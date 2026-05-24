@@ -57,10 +57,10 @@ import prince.sonic.music.R
 import prince.sonic.music.ui.component.Lyrics
 import prince.sonic.music.utils.rememberEnumPreference
 import prince.sonic.music.utils.rememberPreference
-import prince.sonic.music.constants.PlayerBackgroundStyleKey
-import prince.sonic.music.constants.PlayerBackgroundStyle
-import prince.sonic.music.constants.AmbientModeDullBackgroundKey
-import prince.sonic.music.constants.AmbientModeSongAccentKey
+import iad1tya.echo.music.constants.PlayerBackgroundStyleKey
+import iad1tya.echo.music.constants.PlayerBackgroundStyle
+import iad1tya.echo.music.constants.AmbientModeDullBackgroundKey
+import iad1tya.echo.music.constants.AmbientModeSongAccentKey
 import prince.sonic.music.ui.theme.extractThemeColor
 import coil3.imageLoader
 import coil3.request.ImageRequest
@@ -71,7 +71,7 @@ import androidx.compose.animation.core.tween
 import prince.sonic.music.ui.component.AnimatedGradientBackground
 import prince.sonic.music.ui.theme.PlayerColorExtractor
 import androidx.compose.ui.graphics.toArgb
-import prince.sonic.music.db.entities.LyricsEntity
+import iad1tya.echo.music.db.entities.LyricsEntity
 import prince.sonic.music.di.LyricsHelperEntryPoint
 import prince.sonic.music.LocalDatabase
 import dagger.hilt.android.EntryPointAccessors

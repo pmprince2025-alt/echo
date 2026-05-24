@@ -41,7 +41,7 @@ import androidx.navigation.NavController
 import com.echo.innertube.YouTube
 import prince.sonic.music.LocalPlayerAwareWindowInsets
 import prince.sonic.music.R
-import prince.sonic.music.constants.*
+import iad1tya.echo.music.constants.*
 import prince.sonic.music.ui.component.*
 import prince.sonic.music.ui.utils.backToMain
 import prince.sonic.music.utils.rememberEnumPreference

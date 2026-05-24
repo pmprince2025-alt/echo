@@ -38,11 +38,11 @@ import androidx.compose.ui.unit.sp
 import androidx.core.app.ActivityCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import prince.sonic.music.R
-import prince.sonic.music.constants.ExcludedScanPathsKey
-import prince.sonic.music.constants.ScanPathsKey
-import prince.sonic.music.constants.ScannerSensitivityKey
-import prince.sonic.music.constants.ScannerStrictExtKey
-import prince.sonic.music.constants.ScannerStrictFilePathsKey
+import iad1tya.echo.music.constants.ExcludedScanPathsKey
+import iad1tya.echo.music.constants.ScanPathsKey
+import iad1tya.echo.music.constants.ScannerSensitivityKey
+import iad1tya.echo.music.constants.ScannerStrictExtKey
+import iad1tya.echo.music.constants.ScannerStrictFilePathsKey
 import prince.sonic.music.ui.component.*
 import prince.sonic.music.utils.rememberPreference
 import prince.sonic.music.viewmodels.SettingsViewModel

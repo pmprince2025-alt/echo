@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.datastore.preferences.core.edit
 import com.echo.innertube.YouTube
 import dagger.hilt.android.qualifiers.ApplicationContext
-import prince.sonic.music.constants.*
+import iad1tya.echo.music.constants.*
 import prince.sonic.music.db.AccountDao
 import prince.sonic.music.db.entities.AccountEntity
 import prince.sonic.music.utils.dataStore

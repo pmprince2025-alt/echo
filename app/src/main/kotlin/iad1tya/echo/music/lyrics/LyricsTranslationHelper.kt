@@ -1,7 +1,7 @@
 package prince.sonic.music.lyrics
 
 import prince.sonic.music.api.OpenRouterService
-import prince.sonic.music.constants.LanguageCodeToName
+import iad1tya.echo.music.constants.LanguageCodeToName
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job

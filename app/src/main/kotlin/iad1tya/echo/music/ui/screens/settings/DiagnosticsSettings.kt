@@ -49,7 +49,7 @@ import prince.sonic.music.utils.DiagnosticsCenter
 import prince.sonic.music.utils.rememberPreference
 import kotlinx.coroutines.flow.map
 import androidx.compose.runtime.collectAsState
-import prince.sonic.music.constants.UpdateNotificationsEnabledKey
+import iad1tya.echo.music.constants.UpdateNotificationsEnabledKey
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

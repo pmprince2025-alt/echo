@@ -2,7 +2,7 @@ package prince.sonic.music.lyrics
 
 import android.content.Context
 import com.echo.innertube.CloudflareDnsResolver
-import prince.sonic.music.constants.EnableLyricsPlus
+import iad1tya.echo.music.constants.EnableLyricsPlus
 import prince.sonic.music.utils.dataStore
 import prince.sonic.music.utils.get
 import io.ktor.client.HttpClient

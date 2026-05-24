@@ -44,7 +44,7 @@ import androidx.compose.ui.zIndex
 import androidx.navigation.NavController
 import prince.sonic.music.LocalPlayerAwareWindowInsets
 import prince.sonic.music.R
-import prince.sonic.music.constants.CloudflareDnsEnabledKey
+import iad1tya.echo.music.constants.CloudflareDnsEnabledKey
 import prince.sonic.music.ui.component.IconButton
 import prince.sonic.music.ui.component.PreferenceEntry
 import prince.sonic.music.ui.component.SwitchPreference

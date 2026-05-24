@@ -10,10 +10,10 @@ import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
 import com.echo.innertube.YouTube
 import com.echo.innertube.models.WatchEndpoint
-import prince.sonic.music.constants.ListenTogetherSyncVolumeKey
-import prince.sonic.music.extensions.currentMetadata
-import prince.sonic.music.extensions.metadata
-import prince.sonic.music.extensions.toMediaItem
+import iad1tya.echo.music.constants.ListenTogetherSyncVolumeKey
+import iad1tya.echo.music.extensions.currentMetadata
+import iad1tya.echo.music.extensions.metadata
+import iad1tya.echo.music.extensions.toMediaItem
 import prince.sonic.music.models.MediaMetadata
 import prince.sonic.music.models.MediaMetadata.Album
 import prince.sonic.music.models.MediaMetadata.Artist

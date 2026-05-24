@@ -64,7 +64,7 @@ import prince.sonic.music.BuildConfig
 import prince.sonic.music.LocalPlayerAwareWindowInsets
 import prince.sonic.music.MainActivity
 import prince.sonic.music.R
-import prince.sonic.music.constants.CheckForUpdatesKey
+import iad1tya.echo.music.constants.CheckForUpdatesKey
 import prince.sonic.music.ui.component.IconButton
 import prince.sonic.music.ui.component.SwitchPreference
 import prince.sonic.music.ui.utils.backToMain

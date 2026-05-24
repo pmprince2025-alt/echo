@@ -59,7 +59,7 @@ import prince.sonic.music.LocalPlayerAwareWindowInsets
 import prince.sonic.music.R
 import prince.sonic.music.listentogether.ConnectionState
 import prince.sonic.music.listentogether.RoomRole
-import prince.sonic.music.constants.ListenTogetherAutoApprovalKey
+import iad1tya.echo.music.constants.ListenTogetherAutoApprovalKey
 import prince.sonic.music.ui.component.IconButton
 import prince.sonic.music.ui.utils.backToMain
 import prince.sonic.music.utils.rememberPreference
