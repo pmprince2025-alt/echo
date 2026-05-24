@@ -3,9 +3,9 @@ package prince.sonic.music.viewmodels
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import prince.sonic.music.App
+import iad1tya.echo.music.App
 import prince.sonic.music.managers.AccountManager
-import prince.sonic.music.utils.SyncUtils
+import iad1tya.echo.music.utils.SyncUtils
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.SharingStarted

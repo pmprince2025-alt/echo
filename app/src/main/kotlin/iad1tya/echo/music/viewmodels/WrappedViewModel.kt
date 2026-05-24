@@ -2,13 +2,13 @@ package prince.sonic.music.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import prince.sonic.music.db.MusicDatabase
-import prince.sonic.music.db.entities.AlbumEntity
-import prince.sonic.music.db.entities.Artist
-import prince.sonic.music.db.entities.Event
-import prince.sonic.music.db.entities.Song
-import prince.sonic.music.db.entities.SongEntity
-import prince.sonic.music.ui.screens.OptionStats
+import iad1tya.echo.music.db.MusicDatabase
+import iad1tya.echo.music.db.entities.AlbumEntity
+import iad1tya.echo.music.db.entities.Artist
+import iad1tya.echo.music.db.entities.Event
+import iad1tya.echo.music.db.entities.Song
+import iad1tya.echo.music.db.entities.SongEntity
+import iad1tya.echo.music.ui.screens.OptionStats
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted

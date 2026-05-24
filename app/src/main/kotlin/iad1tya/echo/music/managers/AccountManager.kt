@@ -5,7 +5,7 @@ import com.echo.innertube.YouTube
 import dagger.hilt.android.qualifiers.ApplicationContext
 import prince.sonic.music.db.entities.AccountEntity
 import prince.sonic.music.repositories.AccountRepository
-import prince.sonic.music.utils.SyncUtils
+import iad1tya.echo.music.utils.SyncUtils
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 import javax.inject.Singleton
