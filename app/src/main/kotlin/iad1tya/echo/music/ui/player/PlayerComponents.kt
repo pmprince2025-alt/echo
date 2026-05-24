@@ -73,6 +73,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.ColorMatrix
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -1847,7 +1848,8 @@ fun PlayerBackground(
     playerCustomImageUri: String,
     playerCustomBlur: Float,
     playerCustomContrast: Float,
-    playerCustomBrightness: Float
+    playerCustomBrightness: Float,
+    isPlaying: Boolean = false,
 ) {
     val effectiveBlurRadius = blurRadius.coerceIn(0f, 48f)
     val shouldApplyBlur = !disableBlur && effectiveBlurRadius > 0f
@@ -2312,6 +2314,123 @@ fun PlayerBackground(
                                     }
                                 }
                         )
+                }
+            }
+            PlayerBackgroundStyle.GRADIENT_GLASS -> {
+                AnimatedContent(
+                    targetState = mediaMetadata?.thumbnailUrl,
+                    transitionSpec = {
+                        fadeIn(tween(1200)) togetherWith fadeOut(tween(1200))
+                    },
+                    label = "GradientGlass"
+                ) { thumbnailUrl ->
+                    if (thumbnailUrl != null) {
+                        val blurredAlpha = if (disableBlur) 0.5f else 1f
+                        val baseColors = if (gradientColors.size >= 3) gradientColors else {
+                            listOf(
+                                Color(0xFF667eea),
+                                Color(0xFF764ba2),
+                                Color(0xFFf093fb),
+                            )
+                        }
+                        val glassInfiniteTransition = rememberInfiniteTransition(label = "glassGradient")
+                        val glassPhase by glassInfiniteTransition.animateFloat(
+                            initialValue = 0f,
+                            targetValue = 1f,
+                            animationSpec = infiniteRepeatable(
+                                animation = tween(12000, easing = LinearEasing),
+                                repeatMode = RepeatMode.Restart
+                            ),
+                            label = "glassPhase"
+                        )
+
+                        val c1 = baseColors[0]
+                        val c2 = baseColors.getOrElse(1) { c1 }
+                        val c3 = baseColors.getOrElse(2) { c2 }
+
+                        val blob1Alpha = (0.15f + 0.10f * kotlin.math.sin(glassPhase * 2f * kotlin.math.PI.toFloat())).coerceIn(0f, 1f)
+                        val blob2Alpha = (0.12f + 0.08f * kotlin.math.sin((glassPhase + 0.33f) * 2f * kotlin.math.PI.toFloat())).coerceIn(0f, 1f)
+                        val blob3Alpha = (0.10f + 0.06f * kotlin.math.sin((glassPhase + 0.66f) * 2f * kotlin.math.PI.toFloat())).coerceIn(0f, 1f)
+
+                        val blob1X = 0.2f + 0.15f * kotlin.math.sin(glassPhase * 1.3f * kotlin.math.PI.toFloat())
+                        val blob1Y = 0.3f + 0.15f * kotlin.math.cos(glassPhase * 1.1f * kotlin.math.PI.toFloat())
+                        val blob2X = 0.8f + 0.12f * kotlin.math.sin((glassPhase + 0.5f) * 1.2f * kotlin.math.PI.toFloat())
+                        val blob2Y = 0.7f + 0.12f * kotlin.math.cos((glassPhase + 0.5f) * 0.9f * kotlin.math.PI.toFloat())
+                        val blob3X = 0.5f + 0.20f * kotlin.math.sin((glassPhase + 0.25f) * 0.8f * kotlin.math.PI.toFloat())
+                        val blob3Y = 0.2f + 0.10f * kotlin.math.cos((glassPhase + 0.25f) * 1.4f * kotlin.math.PI.toFloat())
+
+                        Box(modifier = Modifier.fillMaxSize()) {
+                            AsyncImage(
+                                model = thumbnailUrl,
+                                contentDescription = "Gradient glass background",
+                                contentScale = ContentScale.Crop,
+                                modifier = Modifier.fillMaxSize().let {
+                                    if (!disableBlur && effectiveBlurRadius > 0f) it.blur(radius = effectiveBlurRadius.dp) else it
+                                }
+                                    .graphicsLayer { alpha = blurredAlpha }
+                            )
+
+                            // Animated gradient blobs
+                            Box(
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .drawWithCache {
+                                        onDrawBehind {
+                                            drawCircle(
+                                                brush = Brush.radialGradient(
+                                                    colors = listOf(c1.copy(alpha = blob1Alpha), Color.Transparent),
+                                                    center = Offset(size.width * blob1X, size.height * blob1Y),
+                                                    radius = size.width * 0.8f
+                                                )
+                                            )
+                                            drawCircle(
+                                                brush = Brush.radialGradient(
+                                                    colors = listOf(c2.copy(alpha = blob2Alpha), Color.Transparent),
+                                                    center = Offset(size.width * blob2X, size.height * blob2Y),
+                                                    radius = size.width * 0.7f
+                                                )
+                                            )
+                                            drawCircle(
+                                                brush = Brush.radialGradient(
+                                                    colors = listOf(c3.copy(alpha = blob3Alpha), Color.Transparent),
+                                                    center = Offset(size.width * blob3X, size.height * blob3Y),
+                                                    radius = size.width * 0.6f
+                                                )
+                                            )
+                                        }
+                                    }
+                            )
+
+                            // Frosted glass layer
+                            Box(
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .background(Color.White.copy(alpha = 0.06f))
+                            )
+
+                            // Glass edge highlight (top)
+                            Box(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(1.dp)
+                                    .background(Color.White.copy(alpha = 0.15f))
+                            )
+
+                            // Dark vignette at bottom for text contrast
+                            Box(
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .background(
+                                        Brush.verticalGradient(
+                                            colorStops = arrayOf(
+                                                0.0f to Color.Transparent,
+                                                0.6f to Color.Transparent,
+                                                1.0f to Color.Black.copy(alpha = 0.40f),
+                                            )
+                                        )
+                                    )
+                            )
+                        }
                     }
                 }
             }

@@ -416,6 +416,7 @@ enum class PlayerBackgroundStyle {
     BLUR_GRADIENT,
     GLOW,
     GLOW_ANIMATED,
+    GRADIENT_GLASS,
 }
 
 // Keys for customized background

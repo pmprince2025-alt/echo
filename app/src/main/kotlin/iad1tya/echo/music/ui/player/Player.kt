@@ -252,7 +252,7 @@ fun BottomSheetPlayer(
         if (darkTheme == DarkMode.AUTO) isSystemInDarkTheme else darkTheme == DarkMode.ON
     }
     val onBackgroundColor = when (playerBackground) {
-        PlayerBackgroundStyle.DEFAULT -> MaterialTheme.colorScheme.secondary
+        PlayerBackgroundStyle.DEFAULT, PlayerBackgroundStyle.GRADIENT_GLASS -> MaterialTheme.colorScheme.secondary
         else ->
             if (useDarkTheme)
                 MaterialTheme.colorScheme.onSurface
@@ -336,7 +336,7 @@ fun BottomSheetPlayer(
     }
     
     LaunchedEffect(mediaMetadata?.id, playerBackground) {
-        if (playerBackground == PlayerBackgroundStyle.GRADIENT || playerBackground == PlayerBackgroundStyle.COLORING || playerBackground == PlayerBackgroundStyle.BLUR_GRADIENT || playerBackground == PlayerBackgroundStyle.GLOW || playerBackground == PlayerBackgroundStyle.GLOW_ANIMATED) {
+        if (playerBackground == PlayerBackgroundStyle.GRADIENT || playerBackground == PlayerBackgroundStyle.COLORING || playerBackground == PlayerBackgroundStyle.BLUR_GRADIENT || playerBackground == PlayerBackgroundStyle.GLOW || playerBackground == PlayerBackgroundStyle.GLOW_ANIMATED || playerBackground == PlayerBackgroundStyle.GRADIENT_GLASS) {
             val currentMetadata = mediaMetadata
             if (currentMetadata != null && currentMetadata.thumbnailUrl != null) {
                 // Check cache first
@@ -401,6 +401,7 @@ fun BottomSheetPlayer(
             PlayerBackgroundStyle.GLOW -> Color.White
             PlayerBackgroundStyle.GLOW_ANIMATED -> Color.White
             PlayerBackgroundStyle.CUSTOM -> Color.White
+            PlayerBackgroundStyle.GRADIENT_GLASS -> Color.White
         }
 
     val icBackgroundColor =
@@ -414,6 +415,7 @@ fun BottomSheetPlayer(
             PlayerBackgroundStyle.GLOW -> Color.Black
             PlayerBackgroundStyle.GLOW_ANIMATED -> Color.Black
             PlayerBackgroundStyle.CUSTOM -> Color.Black
+            PlayerBackgroundStyle.GRADIENT_GLASS -> Color.Black
         }
 
     val (textButtonColor, iconButtonColor) = when (playerButtonsStyle) {
@@ -693,12 +695,10 @@ fun BottomSheetPlayer(
             }
             Color.Black.copy(alpha = 1f - fadeProgress)
         } else when (playerBackground) {
-            PlayerBackgroundStyle.BLUR, PlayerBackgroundStyle.GRADIENT -> {
-                // Apply same enhanced fade logic to blur/gradient backgrounds
+            PlayerBackgroundStyle.BLUR, PlayerBackgroundStyle.GRADIENT, PlayerBackgroundStyle.GRADIENT_GLASS -> {
                 val progress = ((state.value - state.collapsedBound) / (state.expandedBound - state.collapsedBound))
                     .coerceIn(0f, 1f)
                 
-                // Only start fading when very close to dismissal (last 20%)
                 val fadeProgress = if (progress < 0.2f) {
                     ((0.2f - progress) / 0.2f).coerceIn(0f, 1f)
                 } else {
@@ -708,12 +708,9 @@ fun BottomSheetPlayer(
                 MaterialTheme.colorScheme.surface.copy(alpha = 1f - fadeProgress)
             }
             else -> {
-                // Enhanced background - stable until last 20% of drag (both normal and pure black)
-                // Calculate progress for fade effect
                 val progress = ((state.value - state.collapsedBound) / (state.expandedBound - state.collapsedBound))
                     .coerceIn(0f, 1f)
                 
-                // Only start fading when very close to dismissal (last 20%)
                 val fadeProgress = if (progress < 0.2f) {
                     ((0.2f - progress) / 0.2f).coerceIn(0f, 1f)
                 } else {
@@ -721,10 +718,8 @@ fun BottomSheetPlayer(
                 }
                 
                 if (useBlackBackground) {
-                    // Apply same logic to pure black background
                     Color.Black.copy(alpha = 1f - fadeProgress)
                 } else {
-                    // Apply same logic to normal theme
                     MaterialTheme.colorScheme.surface.copy(alpha = 1f - fadeProgress)
                 }
             }
@@ -828,7 +823,8 @@ fun BottomSheetPlayer(
                 playerCustomImageUri = playerCustomImageUri,
                 playerCustomBlur = playerCustomBlur,
                 playerCustomContrast = playerCustomContrast,
-                playerCustomBrightness = playerCustomBrightness
+                playerCustomBrightness = playerCustomBrightness,
+                isPlaying = isPlaying,
             )
         }
 
@@ -925,6 +921,21 @@ fun BottomSheetPlayer(
                             disableBlur = disableBlur,
                             label = "v7BackdropLandscape",
                         )
+
+                        Box(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .background(Color.Transparent),
+                            contentAlignment = Alignment.Center,
+                        ) {
+                            val screenHeight = LocalConfiguration.current.screenHeightDp
+                            val cdSize = (screenHeight * 0.55).dp
+                            RotatingCDArtwork(
+                                mediaMetadata = mediaMetadata,
+                                isPlaying = isPlaying,
+                                modifier = Modifier.size(cdSize),
+                            )
+                        }
 
                         Column(
                             horizontalAlignment = Alignment.CenterHorizontally,
@@ -1086,6 +1097,21 @@ fun BottomSheetPlayer(
                             disableBlur = disableBlur,
                             label = "v7BackdropPortrait",
                         )
+
+                        Box(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .background(Color.Transparent),
+                            contentAlignment = Alignment.Center,
+                        ) {
+                            val screenWidth = LocalConfiguration.current.screenWidthDp
+                            val cdSize = (screenWidth * 0.65).dp
+                            RotatingCDArtwork(
+                                mediaMetadata = mediaMetadata,
+                                isPlaying = isPlaying,
+                                modifier = Modifier.size(cdSize),
+                            )
+                        }
 
                         Column(
                             horizontalAlignment = Alignment.CenterHorizontally,
