@@ -39,7 +39,7 @@ extractor = "8773f0d"
 firebaseBom = "33.9.0"
 googleServices = "4.4.4"
 firebaseCrashlyticsGradle = "3.0.2"
-castFramework = "21.5.0"
+castFramework = "22.3.1"
 mlkitLanguageId = "17.0.6"
 mlkitTranslate = "17.0.3"
 
